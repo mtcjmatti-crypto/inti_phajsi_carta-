@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Inti Phajsi · Carta</title>
+<meta name="description" content="Carta digital de Inti Phajsi, cocina peruana en Baquedano 764, Iquique. Mariscos, parrilla, pisco sour y más.">
+<meta name="theme-color" content="#1f1411">
+<meta property="og:title" content="Inti Phajsi · Carta digital"><meta property="og:description" content="Carta digital de Inti Phajsi, cocina peruana en Baquedano 764, Iquique. Mariscos, parrilla, pisco sour y más.">
+<meta property="og:image" content="og.jpg"><meta property="og:type" content="website">
+<link rel="icon" href="favicon.webp"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Young+Serif&display=swap">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style id="css">/* Layout: barro y ají — portada con la fachada, barra de categorías fija, carta en una columna (dos en escritorio), hojas inferiores para detalle y pedido */
+:root{
+  --night:#1f1411; --night-2:#2b1c17; --night-3:#3c2820; --line:rgba(242,179,61,.24);
+  --cream:#f7ebd9; --muted:#c4ae9c; --gold:#f2b33d; --gold-deep:#b9822a; --chili:#ff5a3c; --leaf:#5fb98a;
+  --display:"Young Serif",Georgia,"Times New Roman",serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --on-accent:#1f1411; --bg-rgb:31,20,17; --card-rgb:43,28,23; --hair:rgba(196,174,156,.14);
+  --r:14px; --gutter:16px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--night);color:var(--cream)}
+body{font-family:var(--body);font-size:15.5px;line-height:1.45;-webkit-font-smoothing:antialiased;padding-inline:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:var(--gutter)}
+.serif{font-family:var(--display);font-weight:400}
+.muted{color:var(--muted)}
+.price{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:700;white-space:nowrap}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* Franja tejida tipo aguayo / manta andina */
+.tejido{height:14px;border-radius:2px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='14' viewBox='0 0 32 14'%3E%3Crect width='32' height='14' fill='%232b1c17'/%3E%3Crect width='32' height='2' fill='%23c8261d'/%3E%3Crect y='2' width='32' height='1' fill='%23f2b33d'/%3E%3Crect y='11' width='32' height='1' fill='%23f2b33d'/%3E%3Crect y='12' width='32' height='2' fill='%23c8261d'/%3E%3Cpath d='M4 3.5 7.5 7 4 10.5 .5 7z' fill='%23e0457b'/%3E%3Cpath d='M12 3.5 15.5 7 12 10.5 8.5 7z' fill='%232f9e6e'/%3E%3Cpath d='M20 3.5 23.5 7 20 10.5 16.5 7z' fill='%23f2b33d'/%3E%3Cpath d='M28 3.5 31.5 7 28 10.5 24.5 7z' fill='%23ee6c2b'/%3E%3Ccircle cx='4' cy='7' r='1' fill='%23f7ebd9'/%3E%3Ccircle cx='12' cy='7' r='1' fill='%23f7ebd9'/%3E%3Ccircle cx='20' cy='7' r='1' fill='%23c8261d'/%3E%3Ccircle cx='28' cy='7' r='1' fill='%23f7ebd9'/%3E%3C/svg%3E") repeat-x;background-size:auto 14px}
+
+/* ---------- Bienvenida ---------- */
+.welcome{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;justify-content:flex-end;
+  background:var(--night);overflow:auto}
+.welcome .bg{position:absolute;inset:0;background-size:cover;background-position:50% 35%;opacity:0;transform:scale(1.04);transition:opacity 1.4s ease,transform 6s ease}
+.welcome .bg.on{opacity:1;transform:scale(1)}
+.welcome .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--bg-rgb),.15) 0%,rgba(var(--bg-rgb),.45) 36%,var(--night) 76%)}
+.welcome .inner{position:relative;padding:calc(env(safe-area-inset-top,0px) + 32px) var(--gutter) calc(env(safe-area-inset-bottom,0px) + 28px);max-width:560px;margin:0 auto;width:100%;display:grid;gap:18px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand img{width:76px;height:76px;filter:drop-shadow(0 4px 14px rgba(0,0,0,.45))}
+.brand h1{margin:0;font-family:var(--display);font-weight:400;font-size:2.5rem;line-height:1;letter-spacing:.01em}
+.brand p{margin:4px 0 0;color:var(--gold);font-size:.9rem;letter-spacing:.06em}
+.welcome h2{margin:6px 0 0;font-family:var(--display);font-weight:400;font-size:1.65rem;text-wrap:balance}
+.choices{display:grid;gap:12px}
+.choice{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:14px;text-align:left;padding:16px;border-radius:var(--r);
+  border:1px solid var(--line);background:rgba(var(--card-rgb),.86);backdrop-filter:blur(6px);transition:transform .15s,border-color .15s}
+.choice:hover{border-color:var(--gold);transform:translateY(-1px)}
+.choice .ic{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;background:var(--night-3);color:var(--gold)}
+.choice .ic svg{width:28px;height:28px}
+.choice b{display:block;font-size:1.08rem}
+.choice span{display:block;color:var(--muted);font-size:.88rem;margin-top:2px}
+.choice .go{color:var(--gold);font-size:1.3rem}
+.aymara{font-size:.8rem;color:var(--muted);letter-spacing:.04em}
+.aymara em{font-style:normal;color:var(--cream)}
+
+/* ---------- Portada ---------- */
+.hero{position:relative;min-height:230px;display:flex;align-items:flex-end;background-size:cover;background-position:38% 40%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(var(--bg-rgb),.15),rgba(var(--bg-rgb),.6) 55%,var(--night))}
+.hero .wrap{position:relative;z-index:1;width:100%;padding-block:calc(env(safe-area-inset-top,0px) + 24px) 18px}
+.hero .brand img{width:64px;height:64px}
+.hero .brand h1{font-size:2.1rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(var(--card-rgb),.8);font-size:.83rem;color:var(--cream)}
+.chip.mode{border-color:var(--gold);color:var(--gold)}
+.chip svg{width:15px;height:15px}
+button.chip:hover{border-color:var(--gold)}
+
+/* ---------- Barra de categorías ---------- */
+.catbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(var(--bg-rgb),.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.catbar .wrap{display:flex;gap:10px;align-items:center;padding-block:10px}
+.cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;scroll-behavior:smooth}
+.cats::-webkit-scrollbar{display:none}
+.cats a{flex:none;padding:7px 13px;border-radius:999px;color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:600;border:1px solid transparent}
+.cats a.on{color:var(--on-accent);background:var(--gold)}
+.iconbtn{flex:none;width:38px;height:38px;border-radius:999px;border:1px solid var(--line);background:var(--night-2);display:grid;place-items:center;color:var(--cream);position:relative}
+.iconbtn svg{width:19px;height:19px}
+.iconbtn .n{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--chili);color:#fff;font-size:.7rem;font-weight:700;display:grid;place-items:center}
+.search{padding-block:12px 2px}
+.search input{width:100%;padding:11px 14px 11px 40px;border-radius:12px;border:1px solid var(--line);background:var(--night-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%23b4adc3' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") 13px 50%/18px no-repeat}
+.search input::placeholder{color:var(--muted)}
+
+/* ---------- Carta ---------- */
+main{padding-bottom:120px}
+.note{margin:14px 0 4px;padding:12px 14px;border-radius:12px;background:var(--night-2);border:1px dashed var(--line);font-size:.9rem;color:var(--muted)}
+.note b{color:var(--cream)}
+.recs{margin-top:22px}
+.recs h3,.sec-head h2{font-family:var(--display);font-weight:400;margin:0}
+.recs h3{font-size:1.25rem;margin-bottom:10px}
+.rec-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,62%);gap:12px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+.rec{position:relative;text-align:left;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--night-2);padding:0;display:flex;flex-direction:column;min-height:150px}
+.rec .ph{aspect-ratio:16/10;background:var(--night-3);display:grid;place-items:center;color:var(--gold-deep)}
+.rec .ph img{width:100%;height:100%;object-fit:cover}
+.rec .ph svg{width:40px;height:40px;opacity:.7}
+.rec .t{padding:10px 12px 12px;display:grid;gap:4px}
+.rec .t b{font-size:.98rem;line-height:1.25}
+.rec .t q{font-size:.8rem;color:var(--muted);quotes:none;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+.sec{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 70px);margin-top:34px}
+.sec-head{display:grid;gap:4px;margin-bottom:6px}
+.sec-head h2{font-size:1.75rem;line-height:1.1;text-wrap:balance}
+.sec-head p{margin:0;color:var(--gold);font-size:.88rem;letter-spacing:.03em}
+.sec .tejido{margin:10px 0 4px;width:160px}
+.sub{margin:18px 0 2px;font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:700}
+.items{display:grid;gap:0}
+.item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid var(--hair);text-align:left;background:none;border-left:0;border-right:0;border-top:0;width:100%}
+.item .thumb{width:64px;height:64px;border-radius:10px;object-fit:cover;background:var(--night-3)}
+.item .nothumb{width:0}
+.item .tx{min-width:0;display:grid;gap:3px}
+.item .nm{font-weight:650;font-size:1rem;line-height:1.3}
+.item .ds{color:var(--muted);font-size:.86rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.item .rt{display:grid;justify-items:end;gap:8px}
+.badge{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--chili);margin-left:6px;vertical-align:2px}
+.add{width:34px;height:34px;border-radius:999px;border:1px solid var(--gold);background:transparent;color:var(--gold);display:grid;place-items:center;font-size:1.2rem;line-height:1}
+.add:hover{background:var(--gold);color:var(--on-accent)}
+.add.has{background:var(--gold);color:var(--on-accent);font-size:.85rem;font-weight:800}
+.empty{padding:30px 0;color:var(--muted);text-align:center}
+@media (min-width:860px){
+  .items{grid-template-columns:1fr 1fr;column-gap:40px}
+  .rec-row{grid-auto-columns:calc((100% - 36px)/4)}
+  .hero{min-height:320px}
+}
+footer{margin-top:40px;padding-block:22px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem;display:grid;gap:8px}
+footer .row{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.linkbtn{background:none;border:0;color:var(--gold);padding:0;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- Barra de pedido ---------- */
+.cartbar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px var(--gutter) calc(env(safe-area-inset-bottom,0px) + 12px);background:linear-gradient(180deg,transparent,rgba(var(--bg-rgb),.95) 35%)}
+.cartbar button{width:100%;max-width:560px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:15px 18px;border-radius:14px;border:0;background:var(--gold);color:var(--on-accent);font-weight:800;font-size:1rem;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.cartbar .cnt{background:var(--on-accent);color:var(--gold);border-radius:8px;padding:2px 9px;font-size:.85rem}
+
+/* ---------- Hojas (detalle / pedido / admin) ---------- */
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(6,8,18,.66);display:flex;align-items:flex-end;justify-content:center;animation:fade .18s}
+.sheet{width:100%;max-width:620px;max-height:92%;overflow:auto;background:var(--night-2);border-radius:20px 20px 0 0;border:1px solid var(--line);border-bottom:0;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 20px);animation:up .22s ease-out}
+@media (min-width:700px){.scrim{align-items:center}.sheet{border-radius:20px;border-bottom:1px solid var(--line);max-height:88%}}
+@keyframes up{from{transform:translateY(24px);opacity:.4}}
+@keyframes fade{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.sheet .grab{width:42px;height:4px;border-radius:2px;background:var(--line);margin:10px auto 0}
+.sheet .pad{padding:16px 20px 0;display:grid;gap:12px}
+.sheet .close{position:sticky;top:10px;float:right;margin:10px 12px 0 0;z-index:2}
+.dish-ph{aspect-ratio:4/3;max-height:340px;width:100%;object-fit:cover;display:block}
+.dish-gal{display:flex;gap:8px;overflow-x:auto;padding:0 20px}
+.dish-gal img{width:78px;height:60px;object-fit:cover;border-radius:8px;border:2px solid transparent}
+.dish-gal img.on{border-color:var(--gold)}
+.sheet h2{font-family:var(--display);font-weight:400;font-size:1.7rem;margin:0;line-height:1.15;text-wrap:balance}
+.quote{font-family:var(--display);font-size:1.08rem;color:var(--gold);margin:0;border-left:3px solid var(--chili);padding-left:12px}
+.label{font-size:.74rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:700;margin:4px 0 0}
+.ing{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.ing li{padding:5px 10px;border-radius:999px;background:var(--night-3);font-size:.85rem}
+.qty{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:12px;padding:4px}
+.qty button{width:36px;height:36px;border:0;border-radius:9px;background:var(--night-3);font-size:1.2rem}
+.qty span{min-width:26px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 18px;border-radius:12px;border:1px solid var(--gold);background:var(--gold);color:var(--on-accent);font-weight:800;text-decoration:none;font-size:.98rem}
+.btn.ghost{background:transparent;color:var(--gold)}
+.btn.danger{background:transparent;border-color:var(--chili);color:#ff7a72}
+.btn.wa{background:#25d366;border-color:#25d366;color:#08210f}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.rowflex{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.grow{flex:1}
+.cart-line{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--hair)}
+.cart-line .nm{font-weight:600}
+.total{display:flex;justify-content:space-between;font-size:1.15rem;font-weight:800;padding-top:6px}
+.field{display:grid;gap:5px}
+.field label{font-size:.84rem;color:var(--muted);font-weight:600}
+.field input,.field textarea,.field select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--night);color:var(--cream)}
+.field textarea{min-height:70px;resize:vertical}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--night);padding:4px;border-radius:12px;border:1px solid var(--line)}
+.seg button{border:0;border-radius:9px;padding:10px;background:transparent;color:var(--muted);font-weight:700}
+.seg button.on{background:var(--night-3);color:var(--gold)}
+.small{font-size:.82rem;color:var(--muted)}
+.copy{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.copy code{font-family:ui-monospace,Menlo,monospace;background:var(--night);padding:6px 10px;border-radius:8px;user-select:all}
+
+/* ---------- Panel de administración ---------- */
+.admin{position:fixed;inset:0;z-index:50;background:var(--night);overflow:auto}
+.admin header{position:sticky;top:0;z-index:3;background:rgba(var(--bg-rgb),.97);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.admin header .wrap{display:flex;align-items:center;gap:12px;padding-block:12px;flex-wrap:wrap}
+.admin h1{font-family:var(--display);font-weight:400;font-size:1.35rem;margin:0}
+.tabs{display:flex;gap:6px;overflow-x:auto}
+.tabs button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:7px 14px;color:var(--muted);font-weight:700;white-space:nowrap}
+.tabs button.on{background:var(--gold);color:var(--on-accent);border-color:var(--gold)}
+.dirty{font-size:.82rem;color:var(--gold)}
+.alist{display:grid;gap:8px;margin-top:12px}
+.arow{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--night-2);border:1px solid var(--hair)}
+.arow.off{opacity:.55}
+.arow img,.arow .noimg{width:48px;height:48px;border-radius:9px;object-fit:cover;background:var(--night-3);display:grid;place-items:center;color:var(--muted);font-size:.7rem}
+.arow .tx{min-width:0}
+.arow .tx b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arow .tx span{font-size:.82rem;color:var(--muted)}
+.arow .acts{display:flex;gap:6px;align-items:center}
+.sw{position:relative;width:44px;height:26px;border-radius:13px;background:var(--night-3);border:1px solid var(--line);flex:none}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:var(--muted);transition:left .15s}
+.sw.on{background:var(--leaf);border-color:var(--leaf)}
+.sw.on::after{left:20px;background:#fff}
+.mini{width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:transparent;display:grid;place-items:center;color:var(--cream)}
+.mini svg{width:17px;height:17px}
+.mini.del{color:#ff7a72;border-color:rgba(232,53,44,.45)}
+.confirm{display:flex;gap:6px;align-items:center;font-size:.82rem}
+.confirm button{padding:7px 10px;border-radius:8px;border:1px solid var(--chili);background:var(--chili);color:#fff;font-weight:700}
+.confirm button.no{background:transparent;color:var(--cream);border-color:var(--line)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.filters input,.filters select{padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--night-2);color:var(--cream);min-width:0}
+.filters input{flex:1 1 200px}
+.grid2{display:grid;gap:12px}
+@media (min-width:640px){.grid2{grid-template-columns:1fr 1fr}}
+.imgedit{display:flex;gap:10px;flex-wrap:wrap}
+.imgedit figure{margin:0;position:relative}
+.imgedit img{width:96px;height:76px;object-fit:cover;border-radius:9px;display:block}
+.imgedit figure button{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(0,0,0,.7);color:#fff;font-size:.8rem}
+.upl{width:96px;height:76px;border-radius:9px;border:1px dashed var(--gold);display:grid;place-items:center;color:var(--gold);font-size:.78rem;text-align:center;cursor:pointer}
+.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 14px);transform:translateX(-50%);z-index:80;background:var(--cream);color:var(--night);padding:11px 16px;border-radius:12px;font-weight:700;font-size:.92rem;box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:calc(100% - 32px)}
+.pubbar{position:sticky;bottom:0;z-index:3;background:rgba(var(--bg-rgb),.97);border-top:1px solid var(--line);padding:12px 0 calc(env(safe-area-inset-bottom,0px) + 12px)}
+.pubbar .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.msg{padding:12px 14px;border-radius:12px;font-size:.9rem;background:var(--night-2);border:1px solid var(--line)}
+.msg.err{border-color:var(--chili)}
+
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.lk{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(var(--card-rgb),.85);color:var(--cream);text-decoration:none;font-weight:600;font-size:.9rem}
+.lk svg{width:17px;height:17px;color:var(--gold)}
+.lk:hover{border-color:var(--gold)}
+a.chip{text-decoration:none}
+a.chip:hover{border-color:var(--gold)}
+
+/* Cabeceras de categoría con foto difuminada */
+.sec-head.ban{position:relative;overflow:hidden;border-radius:20px;min-height:250px;padding:22px 18px 18px;align-content:end;background-size:cover;background-position:center;isolation:isolate;margin-inline:calc(var(--gutter) * -0.5)}
+.sec-head.ban::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(var(--bg-rgb),0) 30%,rgba(var(--bg-rgb),.55) 65%,rgba(var(--bg-rgb),.94) 100%)}
+.sec-head.ban h2{font-size:2.1rem;text-shadow:0 2px 16px rgba(0,0,0,.5)}
+.sec-head.ban p{text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.sec-head.ban .tejido{margin:8px 0 0;width:160px}
+@media (min-width:860px){.sec-head.ban{min-height:360px;padding:34px 30px 24px;margin-inline:0}.sec-head.ban h2{font-size:2.6rem}}
+/* Así es Inti Phajsi */
+.about{margin-top:44px}
+.about h3{font-family:var(--display);font-weight:400;font-size:1.5rem;margin:0 0 4px}
+.about-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(170px,46%);gap:10px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+.about figure{margin:0;border-radius:14px;overflow:hidden;position:relative;aspect-ratio:4/5;background:var(--night-3)}
+.about img{width:100%;height:100%;object-fit:cover;display:block}
+.about figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 9px;font-size:.8rem;font-weight:600;background:linear-gradient(180deg,transparent,rgba(0,0,0,.7));color:#fff}
+@media (min-width:860px){.about-row{grid-auto-columns:calc((100% - 50px)/6)}}
+
+/* Horario */
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff7a5c;margin-right:2px;flex:none}
+.dot.on{background:var(--leaf);box-shadow:0 0 0 3px rgba(95,185,138,.25)}
+.hours{border:1px solid var(--line);border-radius:14px;background:rgba(var(--card-rgb),.85);padding:0}
+.hours summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:12px 14px;font-weight:600;font-size:.92rem}
+.hours summary::-webkit-details-marker{display:none}
+.hours .see{margin-left:auto;color:var(--gold);font-size:.82rem;font-weight:700}
+.hours[open] .see{visibility:hidden}
+.hours ul{list-style:none;margin:0;padding:0 14px 12px;display:grid;gap:4px;font-size:.88rem;font-variant-numeric:tabular-nums}
+.hours li{display:flex;justify-content:space-between;color:var(--muted)}
+.hours li.today{color:var(--cream);font-weight:700}
+.hedit{display:grid;gap:8px;max-width:420px}
+.hrow{display:grid;grid-template-columns:90px 1fr auto 1fr;gap:8px;align-items:center;font-size:.9rem}
+.hrow input{padding:9px 10px;border-radius:10px;border:1px solid var(--line);background:var(--night);color:var(--cream);min-width:0}
+.about .hours{margin:0 0 12px}
+
+/* Categorías desplegables */
+.sec-head.toggle{width:100%;text-align:left;border:0;color:inherit;font:inherit;cursor:pointer;display:grid;gap:4px}
+.sec-head.plain{background:var(--night-2);border:1px solid var(--line);border-radius:18px;padding:20px 18px 16px}
+.sec-head.plain .tejido{margin:8px 0 0;width:160px}
+.sec-cta{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:.85rem;font-weight:700;color:var(--cream)}
+.sec-cta>span:first-child{padding:5px 12px;border-radius:999px;background:rgba(var(--bg-rgb),.7);border:1px solid var(--line)}
+.chev{margin-left:auto;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--on-accent);transition:transform .25s}
+.chev svg{width:20px;height:20px}
+.sec.open .chev{transform:rotate(180deg)}
+.sec{margin-top:16px}
+.sec-body{padding-top:4px}
+.sec-head.toggle:hover .chev{filter:brightness(1.1)}
+/* Ficha del plato */
+.sheet-band{height:14px;border-radius:0;margin:0}
+.dish{gap:14px;padding-top:18px}
+.kicker{margin:0;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.frase{margin:0;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;padding:14px 16px;border-radius:14px;background:linear-gradient(135deg,rgba(242,179,61,.14),rgba(200,38,29,.10));border:1px solid var(--line);font-family:var(--display);font-size:1.12rem;line-height:1.35;color:var(--cream)}
+.frase .sol{color:var(--gold);width:34px;height:34px}
+.frase .sol svg{width:34px;height:34px}
+.desc{margin:0;color:var(--muted)}
+.blk{display:grid;gap:8px}
+.ing li{border:1px solid var(--line);background:var(--night-3)}
+.ficha{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ficha div{padding:10px 12px;border-radius:12px;background:var(--night);border:1px dashed var(--line)}
+.ficha dt{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:700}
+.ficha dd{margin:3px 0 0;font-weight:600;font-size:.92rem}
+.pair{margin:0;display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--night);border-left:3px solid var(--chili);font-size:.92rem}
+.pair svg{width:22px;height:22px;color:var(--gold);display:block}
+.order{margin-top:4px;position:sticky;bottom:0;background:var(--night-2);padding-top:8px}
+.waiter{margin:4px 0 0;text-align:center;padding:10px;border-radius:12px;border:1px dashed var(--line)}
+
+.ing li::first-letter,.ficha dd::first-letter{text-transform:uppercase}
+.ing li{display:inline-block}
+</style>
+</head><body>
+<script type="application/json" id="menu-data">{"cats":[{"id":"marinos","name":"Platos marinos","tag":"Del mar a la mesa, con sazón peruana","on":true,"img":"img/cat-marinos-24144f9b22.jpg"},{"id":"tablas","name":"Tablas marinas","tag":"Para compartir en la mesa grande","on":true,"img":"img/cat-tablas-98b35134d1.jpg"},{"id":"parrilla","name":"Parrilladas","tag":"Brasa, carbón y buenos cortes","on":true,"img":"img/cat-parrilla-cae87b1996.jpg"},{"id":"carnes","name":"Carnes y aves","tag":"Clásicos criollos de fondo","on":true,"img":"img/cat-carnes-e22f8fb981.jpg"},{"id":"piqueos","name":"Piqueos","tag":"Para picar entre amigos","on":true,"img":"img/cat-piqueos-24c15f5000.jpg"},{"id":"empanadas","name":"Empanadas","tag":"Horneadas y doradas","on":true,"img":"img/cat-empanadas-738ef06029.jpg"},{"id":"ensaladas","name":"Ensaladas","tag":"Frescas y abundantes","on":true,"img":"img/cat-ensaladas-9b987b84a9.jpg"},{"id":"vegetarianos","name":"Vegetarianos","tag":"Sin carne, con todo el sabor","on":true,"img":"img/cat-vegetarianos-6930e97ac1.jpg"},{"id":"sandwiches","name":"Sándwiches","tag":"En pan amasado, con papas fritas","on":true,"img":"img/cat-sandwiches-35b473a59b.jpg"},{"id":"menu","name":"Menú del día","tag":"Almuerzo casero de la semana","on":true,"img":"img/cat-menu-603d6ee4dc.jpg"},{"id":"acomp","name":"Acompañamientos","tag":"Para armar tu plato","on":true},{"id":"desayunos","name":"Desayunos","tag":"Para empezar el día","on":true,"img":"img/cat-desayunos-ee45d85892.jpg"},{"id":"postres","name":"Postres","tag":"El final dulce","on":true,"img":"img/cat-postres-3ab77a4716.jpg"},{"id":"cafeteria","name":"Cafetería","tag":"Café, té y algo rico","on":true},{"id":"jugos","name":"Jugos naturales","tag":"Fruta natural, recién hecha","on":true},{"id":"happy","name":"Happy Hour","tag":"Promociones para brindar de a dos","on":false},{"id":"cocteles","name":"Cócteles","tag":"Sours, mojitos y clásicos","on":true,"img":"img/cat-cocteles-a94de0db3e.jpg"},{"id":"cervezas","name":"Cervezas","tag":"Botellines y schop helado","on":true,"img":"img/cat-cervezas-4c2d5a0771.jpg"},{"id":"vinos","name":"Vinos","tag":"Tintos, blancos y espumante","on":true,"img":"img/cat-vinos-62bda4f81b.jpg"},{"id":"destilados","name":"Destilados","tag":"Piscos, whiskys y bajativos","on":true,"img":"img/cat-destilados-4e11154370.jpg"},{"id":"bebidas","name":"Bebidas","tag":"Bebidas y aguas","on":true}],"items":[{"id":"p200","cat":"marinos","sub":"Calientes","name":"Reineta frita","desc":"Acompañado de 2 agregados a elección.","price":15990,"on":true,"fav":false,"ing":"Reineta fresca, harina sazonada, limón, sal de mar","quote":"Crujiente por fuera, jugosa por dentro: la reineta como en casa de la abuela.","img":"","specs":"Porción: 1 persona; Acompañamiento: 2 agregados a elección; Picor: sin picante","pair":"Limonada o copa de vino blanco"},{"id":"p222","cat":"marinos","sub":"Calientes","name":"Reineta a la plancha","desc":"Acompañado de 2 agregados a elección.","price":15990,"on":true,"fav":false,"ing":"Reineta fresca, ajo, limón, aceite de oliva, finas hierbas","quote":"Simple y honesta: pescado del día sellado a la plancha.","img":"","specs":"Porción: 1 persona; Acompañamiento: 2 agregados a elección; Picor: sin picante","pair":"Copa de vino blanco"},{"id":"p223","cat":"marinos","sub":"Calientes","name":"Albacora frita","desc":"Acompañado de 2 agregados a elección.","price":13990,"on":true,"fav":false,"ing":"Albacora, harina sazonada, limón, sal de mar","quote":"La albacora del norte, dorada y crocante.","img":"","specs":"Porción: 1 persona; Acompañamiento: 2 agregados a elección; Picor: sin picante","pair":"Cerveza Cusqueña"},{"id":"p224","cat":"marinos","sub":"Calientes","name":"Albacora a la plancha","desc":"Acompañado de 2 agregados a elección.","price":13990,"on":true,"fav":false,"ing":"Albacora, ajo, limón, aceite de oliva, finas hierbas","quote":"Albacora a la plancha, liviana y llena de sabor a mar.","img":"","specs":"Porción: 1 persona; Acompañamiento: 2 agregados a elección; Picor: sin picante","pair":"Limonada menta y jengibre"},{"id":"p312","cat":"marinos","sub":"Calientes","name":"Chicharrón de mariscos","desc":"Plato servido con una cama de papas fritas coronado con calamar, pulpo, camarones, y pescado (TODOS FRITOS).","price":17450,"on":true,"fav":true,"ing":"Calamar, pulpo, camarones, pescado, papas fritas, salsa criolla, limón","quote":"Crujiente por fuera, marino por dentro.","img":"","specs":"Porción: 1 a 2 personas; Picor: suave (ají aparte); Ideal para: compartir","pair":"Pisco sour peruano o cerveza helada"},{"id":"p231","cat":"marinos","sub":"Calientes","name":"Salmón con salsa de alcaparras","desc":"Salmón bañado con una salsa casera a base de alcaparra. Acompañado de 2 agregados a elección.","price":19990,"on":true,"fav":false,"ing":"Salmón, alcaparras, mantequilla, limón, crema, finas hierbas","quote":"Salmón jugoso con el toque ácido y salino de las alcaparras.","img":"","specs":"Porción: 1 persona; Acompañamiento: 2 agregados a elección; Picor: sin picante","pair":"Copa de vino blanco"},{"id":"p221","cat":"marinos","sub":"Calientes","name":"Caldillo de congrio","desc":"Congrio cocido en un caldo de pescado y hierbas frescas. Acompañado de papa y vegetales, con un toque de ají y cilantro.","price":13990,"on":true,"fav":false,"ing":"Congrio, caldo de pescado, papa, zanahoria, cebolla, cilantro, ají","quote":"El caldo que reconforta: congrio, papa y hierbas frescas.","img":"","specs":"Porción: 1 persona; Servido: caliente en greda; Picor: suave","pair":"Copa de vino blanco"},{"id":"p226","cat":"marinos","sub":"Calientes","name":"Chupe de loco","desc":"Locos en una cremosa mezcla de pan y pesto, sofrito de cebolla y especias, gratinado al horno con una una capa de queso derretido.","price":14990,"on":true,"fav":false,"ing":"Locos, pan remojado en leche, crema, cebolla, queso, especias","quote":"Cremoso, gratinado y con todo el sabor del loco nortino.","img":"","specs":"Porción: 1 persona; Servido: gratinado al horno; Picor: sin picante","pair":"Copa de vino blanco"},{"id":"p228","cat":"marinos","sub":"Calientes","name":"Picante de loco","desc":"Loco cocido con papas, ají y hierbas frescas. Acompañado con una porción de arroz.","price":13990,"on":true,"fav":false,"ing":"Locos, papa, ají amarillo, cebolla, ajo, hierbas frescas, arroz blanco","quote":"Picante de loco a la peruana: ají, papa y mar.","img":"","imgs":["img/plato-p228-27d8b98024.jpg"],"specs":"Porción: 1 persona; Picor: medio; Acompañamiento: arroz blanco","pair":"Chilcano o cerveza helada"},{"id":"p227","cat":"marinos","sub":"Calientes","name":"Pastel de jaiba","desc":"Carne de jaiba, bañada en en crema con pan rallado, sofrito de cebolla y especias, gratinado al horno y con una capa de queso derretido.","price":14990,"on":true,"fav":false,"ing":"Carne de jaiba, crema, pan rallado, cebolla, queso, especias","quote":"Jaiba gratinada al horno, cremosa y dorada.","img":"","specs":"Porción: 1 persona; Servido: gratinado al horno; Picor: sin picante","pair":"Copa de vino blanco"},{"id":"p287","cat":"marinos","sub":"Calientes","name":"Paila marina","desc":"Calamar, pulpo, conchas, almejas surtidas, pescado fresco y con un caldo sabroso.","price":14990,"on":true,"fav":true,"ing":"Calamar, pulpo, conchas, almejas, choritos, pescado fresco, caldo de mariscos, cilantro, limón","quote":"El mar entero en una paila de greda humeante.","img":"","imgs":["img/plato-p287-69a445b6c9.jpg","img/plato-p287-ba62cf9b56.jpg"],"specs":"Porción: 1 persona; Servido: caliente en greda; Picor: suave","pair":"Copa de vino blanco o cerveza"},{"id":"p288","cat":"marinos","sub":"Calientes","name":"Picante de pulpo","desc":"Pulpo cocido en una salsa de ají panca, con papas y hierbas frescas. Acompañado con una porción de arroz.","price":12990,"on":true,"fav":false,"ing":"Pulpo, ají panca, papa, cebolla, ajo, hierbas frescas, arroz blanco","quote":"Pulpo tierno en salsa de ají panca, con alma criolla.","img":"","imgs":["img/plato-p288-845ebb405a.jpg"],"specs":"Porción: 1 persona; Picor: medio; Acompañamiento: arroz blanco","pair":"Pisco sour peruano"},{"id":"p739","cat":"marinos","sub":"Calientes","name":"Volcán marino","desc":"Calamar, pulpo, conchas, almejas surtidas, pescado del día, jaiba entera, camarones ecuatorianos y un caldo especial de la casa.","price":16990,"on":true,"fav":true,"ing":"Calamar, pulpo, conchas, almejas, pescado del día, jaiba entera, camarón ecuatoriano, caldo especial","quote":"Una erupción de mariscos con jaiba entera y caldo de la casa.","img":"","specs":"Porción: 1 persona abundante; Servido: caliente en greda; Picor: suave","pair":"Cerveza helada o vino blanco"},{"id":"p831","cat":"marinos","sub":"Calientes","name":"Arroz con mariscos","desc":"Arroz sazonado al estilo peruano, preparado con surtido de mariscos: pulpo, camarones, calamar, conchas y choritos, salteados con nuestro aderezo especial para lograr un intenso y delicioso sabor a mar.","price":14990,"on":true,"fav":true,"ing":"Arroz, pulpo, camarones, calamar, conchas, choritos, ají amarillo, cilantro, aderezo de la casa","quote":"Todo el sabor del puerto en un plato hondo.","img":"","specs":"Porción: 1 persona; Picor: suave; Estilo: peruano","pair":"Chicha de maracuyá o pisco sour"},{"id":"p841","cat":"marinos","sub":"Calientes","name":"Lenguado a la plancha","desc":"","price":17990,"on":true,"fav":false,"ing":"Lenguado, ajo, limón, mantequilla, finas hierbas","quote":"Lenguado delicado, sellado a la plancha en su punto.","img":"","specs":"Porción: 1 persona; Acompañamiento: 2 agregados a elección; Picor: sin picante","pair":"Copa de vino blanco"},{"id":"p842","cat":"marinos","sub":"Calientes","name":"Lenguado frito","desc":"","price":17990,"on":true,"fav":false,"ing":"Lenguado, harina sazonada, limón, sal de mar","quote":"Lenguado dorado y crocante, un clásico costero.","img":"","specs":"Porción: 1 persona; Acompañamiento: 2 agregados a elección; Picor: sin picante","pair":"Cerveza helada"},{"id":"p210","cat":"marinos","sub":"Fríos","name":"Ceviche simple","desc":"Trozos de pescado fresco, mezclado con cebolla morada, cilantro y un toque de ají. Servido con maíz tostado y camote.","price":14990,"on":true,"fav":true,"ing":"Pescado fresco, limón, cebolla morada, cilantro, ají limo, camote, choclo, cancha","quote":"Frío, cítrico y fresco: el ceviche de toda la vida.","img":"","specs":"Porción: 1 persona; Servido: frío; Picor: suave a medio","pair":"Pisco sour peruano"},{"id":"p197","cat":"marinos","sub":"Fríos","name":"Ceviche mixto","desc":"Trozos de pescado fresco, camarones ecuatorianos, pulpo, cebolla morada y cilantro. Acompañado de lechuga fresca, maíz tostado, camote y ají.","price":18990,"on":true,"fav":true,"ing":"Pescado fresco, camarón ecuatoriano, pulpo, limón, cebolla morada, cilantro, ají, camote, cancha, lechuga","quote":"El clásico de la casa: frío, cítrico y con el mar recién llegado.","img":"","specs":"Porción: 1 persona; Servido: frío; Picor: suave a medio","pair":"Pisco sour peruano"},{"id":"p800","cat":"marinos","sub":"Fríos","name":"Leche de tigre","desc":"","price":14450,"on":true,"fav":true,"ing":"Jugo de ceviche, pescado, limón, ají, cebolla morada, cilantro, cancha","quote":"El jugo del ceviche servido en copa: levanta muertos.","img":"","specs":"Porción: 1 copa grande; Servido: frío; Picor: medio","pair":"Cerveza Cusqueña"},{"id":"p1041","cat":"marinos","sub":"Fríos","name":"Loco mayo","desc":"","price":16990,"on":true,"fav":false,"ing":"Locos, mayonesa casera, lechuga, papa, limón","quote":"Loco nortino con mayonesa casera, frío y suave.","img":"","specs":"Porción: 1 persona; Servido: frío; Picor: sin picante","pair":"Copa de vino blanco"},{"id":"p1075","cat":"marinos","sub":"Fríos","name":"Pulpo al olivo","desc":"","price":15990,"on":true,"fav":false,"ing":"Pulpo, crema de aceituna botija, aceite de oliva, limón, galletas","quote":"Pulpo tierno bañado en crema de aceituna botija.","img":"","specs":"Porción: 1 persona; Servido: frío; Picor: sin picante","pair":"Copa de vino blanco"},{"id":"p1261","cat":"marinos","sub":"Fríos","name":"Causa limeña","desc":"","price":13999,"on":true,"fav":false,"ing":"Papa amarilla, ají amarillo, limón, palta, relleno de mariscos, mayonesa, huevo","quote":"Papa amarilla con ají, suave y colorida, como en Lima.","img":"","specs":"Porción: 1 persona; Servido: frío; Picor: suave","pair":"Chilcano"},{"id":"p442","cat":"tablas","sub":"","name":"Jardín del Mar","desc":"Ceviche simple con crujiente pulpo, calamar, camarón y pescado, servido sobre un colchón de vegetales frescos.","price":36990,"on":true,"fav":false,"ing":"Ceviche de pescado, pulpo, calamar, camarón y pescado crocantes, vegetales frescos","quote":"Un jardín marino para compartir: ceviche y crocantes del mar.","img":"","specs":"Porción: 2 a 3 personas; Ideal para: compartir; Picor: suave","pair":"Pisco sour catedral"},{"id":"p780","cat":"tablas","sub":"","name":"Barco Inti Phajsi","desc":"Ceviche simple, 6 empanadas surtidas (2 camaron, 2 pulpo y 2 queso), chicharron de mariscos, arroz con mariscos, 3 brochetas de albacora con verduras, causa de camaron, pulpo al olivo, papas fritas, leche de tigre, camarones apanados.","price":84990,"on":true,"fav":true,"ing":"Ceviche, 6 empanadas surtidas, chicharrón de mariscos, arroz con mariscos, brochetas de albacora, causa de camarón, pulpo al olivo, camarones apanados, leche de tigre, papas fritas","quote":"Nuestro buque insignia: medio menú marino en una sola bandeja.","img":"","imgs":["img/plato-p780-6ba748e793.jpg","img/plato-p780-67d9596c98.jpg","img/plato-p780-3c06755c61.jpg"],"specs":"Porción: 4 a 5 personas; Ideal para: celebraciones; Picor: suave","pair":"Jarra de jugo natural o ronda de pisco sour"},{"id":"p867","cat":"tablas","sub":"","name":"Dúo Marino","desc":"Ceviche simple acompañado con arroz de mariscos o puedes elegir tu otra elección de arroz con mariscos y chicharrón de mariscos.","price":27990,"on":true,"fav":false,"ing":"Ceviche de pescado, arroz con mariscos (o chicharrón de mariscos)","quote":"Dos clásicos que se entienden perfecto.","img":"","specs":"Porción: 2 personas; Ideal para: compartir; Picor: suave","pair":"Pisco sour peruano"},{"id":"p868","cat":"tablas","sub":"","name":"Trío Marino","desc":"Ceviche simple, chicharrón mixto marino acompañado de arroz con mariscos","price":35990,"on":true,"fav":false,"ing":"Ceviche de pescado, chicharrón mixto marino, arroz con mariscos","quote":"Ceviche, chicharrón y arroz: la trilogía del puerto.","img":"","imgs":["img/plato-p868-a11e15a3e5.jpg"],"specs":"Porción: 2 a 3 personas; Ideal para: compartir; Picor: suave","pair":"Ronda de cervezas"},{"id":"p1057","cat":"tablas","sub":"","name":"Ronda Marina","desc":"Ceviche de pescado, chicharrón de mariscos, arroz con mariscos, arroz chaufa con marisco, causa de pulpo o camaron","price":40000,"on":true,"fav":true,"ing":"Ceviche de pescado, chicharrón de mariscos, arroz con mariscos, arroz chaufa marino, causa de pulpo o camarón","quote":"Una ronda completa por la costa peruana.","img":"","imgs":["img/plato-p1057-638963cdfb.jpg","img/plato-p1057-dee2f865d3.jpg"],"specs":"Porción: 3 a 4 personas; Ideal para: compartir; Picor: suave","pair":"Jarra de limonada o vino blanco"},{"id":"p775","cat":"parrilla","sub":"","name":"Parrillada para 2","desc":"2 filetes de pollo, 2 chuleta de cerdo, 1 longaniza, 2 lomo vetado y 2 prieta. +2 agregados: papas fritas y ensalada mixta.","price":45990,"on":true,"fav":true,"ing":"Filete de pollo, chuleta de cerdo, longaniza, lomo vetado, prieta, papas fritas, ensalada mixta","quote":"Brasa para dos, sin apuro y con buena conversa.","img":"","imgs":["img/plato-p775-5660dbd337.jpg","img/plato-p775-982bcdeed8.jpg","img/plato-p775-ac69a6a277.jpg"],"specs":"Porción: 2 personas; Servido: en brasero; Término: a gusto","pair":"Botella de vino tinto"},{"id":"p776","cat":"parrilla","sub":"","name":"Parrillada para 3","desc":"3 filetes de pollo, 3 chuleta de cerdo, 1 1/2 longaniza, 3 lomo vetado y 3 prieta. +2 agregados: papas fritas y ensalada mixta.","price":69990,"on":true,"fav":false,"ing":"Filete de pollo, chuleta de cerdo, longaniza, lomo vetado, prieta, papas fritas, ensalada mixta","quote":"La parrilla grande, para la mesa que no se quiere ir.","img":"","imgs":["img/plato-p776-79bc3eacbe.jpg","img/plato-p776-af22160cb1.jpg"],"specs":"Porción: 3 personas; Servido: en brasero; Término: a gusto","pair":"Botella de vino tinto"},{"id":"p744","cat":"parrilla","sub":"","name":"Pulpo a la parrilla (1 persona)","desc":"+2 agregados: arroz perla, chaufa; fideo blanco; papa dorada, frita; ensalada mixta, chilena.","price":18990,"on":true,"fav":true,"ing":"Pulpo, aceite de oliva, ajo, pimentón, limón, 2 agregados a elección","quote":"Pulpo a la brasa, tierno por dentro y tostado por fuera.","img":"","specs":"Porción: 1 persona; Cocción: a la parrilla; Picor: sin picante","pair":"Copa de vino blanco"},{"id":"p851","cat":"parrilla","sub":"","name":"Pulpo a la parrilla (2 personas)","desc":"+2 agregados: papas frita y ensalada mixta.","price":25990,"on":true,"fav":false,"ing":"Pulpo, aceite de oliva, ajo, pimentón, limón, papas fritas, ensalada mixta","quote":"Pulpo a las brasas para compartir.","img":"","specs":"Porción: 2 personas; Cocción: a la parrilla; Picor: sin picante","pair":"Botella de vino blanco"},{"id":"p73","cat":"carnes","sub":"","name":"Lomo a lo pobre","desc":"Jugoso trozo de lomo, cebolla caramelizada, 2 huevos, papas fritas y arroz blanco.","price":17450,"on":true,"fav":false,"ing":"Lomo, cebolla caramelizada, 2 huevos fritos, papas fritas, arroz blanco","quote":"Contundente y criollo: lomo, huevos y papas para el hambre de verdad.","img":"","specs":"Porción: 1 persona abundante; Término: a gusto; Picor: sin picante","pair":"Copa de vino tinto"},{"id":"p154","cat":"carnes","sub":"","name":"Lomo saltado","desc":"Trozos de lomo vetado, cebolla morada, tomate, cebollín, papas fritas y arroz blanco.","price":15450,"on":true,"fav":true,"ing":"Lomo vetado, cebolla morada, tomate, cebollín, sillao, vinagre, ají amarillo, papas fritas, arroz blanco","quote":"El wok peruano en su mejor versión: humo, jugo y papas fritas.","img":"","specs":"Porción: 1 persona; Cocción: al wok; Picor: suave","pair":"Copa de vino tinto o Inca Kola"},{"id":"p158","cat":"carnes","sub":"","name":"Tallarín saltado de pollo","desc":"Jugozos trocitos de pollo salteado a la brasa con cebolla morada, morron, cebollin, tomate cherry y tallarín.","price":13990,"on":true,"fav":false,"ing":"Tallarín, pollo, cebolla morada, morrón, cebollín, tomate cherry, sillao","quote":"Tallarín al wok con el sabor del fogón chifa.","img":"","specs":"Porción: 1 persona; Cocción: al wok; Picor: sin picante","pair":"Inca Kola"},{"id":"p232","cat":"carnes","sub":"","name":"Pollo a la plancha","desc":"2 agregados a eleccion","price":9990,"on":true,"fav":false,"ing":"Pechuga de pollo, ajo, limón, finas hierbas, 2 agregados a elección","quote":"Pechuga a la plancha, liviana y bien sazonada.","img":"","specs":"Porción: 1 persona; Picor: sin picante","pair":"Jugo natural"},{"id":"p675","cat":"carnes","sub":"","name":"Bistec a la plancha","desc":"","price":10990,"on":true,"fav":false,"ing":"Bistec de vacuno, ajo, sal, pimienta, 2 agregados a elección","quote":"Bistec jugoso a la plancha, al gusto chileno.","img":"","specs":"Porción: 1 persona; Término: a gusto; Picor: sin picante","pair":"Copa de vino tinto"},{"id":"p748","cat":"carnes","sub":"","name":"Filete con salsa de vino","desc":"Filete con reducción de vino tinto agridulce. Servido con un cremoso arroz risotto con champiñones.","price":19990,"on":true,"fav":false,"ing":"Filete de vacuno, reducción de vino tinto, risotto de champiñones","quote":"Filete con reducción de vino tinto, elegante y agridulce.","img":"","specs":"Porción: 1 persona; Término: a gusto; Picor: sin picante","pair":"Copa de vino tinto reserva"},{"id":"p892","cat":"carnes","sub":"","name":"Tallarín saltado de carne","desc":"Jugozos trocitos de carne salteado a la brasa con cebolla morada, morron, cebollin, tomate cherry y tallarín.","price":14990,"on":true,"fav":true,"ing":"Tallarín, carne de vacuno, cebolla morada, morrón, cebollín, tomate cherry, sillao","quote":"Tallarín saltado con carne, salteado a fuego vivo.","img":"","imgs":["img/plato-p892-70d90a86d1.jpg","img/plato-p892-a99f2ca552.jpg"],"specs":"Porción: 1 persona; Cocción: al wok; Picor: sin picante","pair":"Copa de vino tinto o Inca Kola"},{"id":"p1042","cat":"carnes","sub":"","name":"Arroz chaufa con pollo","desc":"","price":12450,"on":true,"fav":false,"ing":"Arroz, pollo, huevo, cebollín, sillao, aceite de ajonjolí, jengibre","quote":"El chaufa de barrio: arroz salteado al wok con pollo.","img":"","specs":"Porción: 1 persona; Cocción: al wok; Picor: sin picante","pair":"Inca Kola"},{"id":"p1078","cat":"carnes","sub":"","name":"Fetuccini a la huancaína con pollo salteado","desc":"","price":11990,"on":true,"fav":false,"ing":"Fetuccini, salsa huancaína (ají amarillo, queso fresco, leche), pollo salteado, cebolla, tomate","quote":"Fetuccini en salsa huancaína con pollo salteado.","img":"","specs":"Porción: 1 persona; Picor: suave","pair":"Inca Kola"},{"id":"p1082","cat":"carnes","sub":"","name":"Fetuccini a la huancaína con filete salteado","desc":"","price":17990,"on":true,"fav":false,"ing":"Fetuccini, salsa huancaína, filete de vacuno salteado, cebolla morada, tomate, cebollín","quote":"Huancaína cremosa y filete al wok: un encuentro perfecto.","img":"","specs":"Porción: 1 persona; Picor: suave","pair":"Copa de vino tinto"},{"id":"p1083","cat":"carnes","sub":"","name":"Fetuccini a la huancaína con lomo saltado","desc":"","price":15990,"on":true,"fav":false,"ing":"Fetuccini, salsa huancaína, lomo saltado, cebolla morada, tomate, cebollín","quote":"Lo mejor de dos clásicos: huancaína y lomo saltado.","img":"","specs":"Porción: 1 persona; Picor: suave","pair":"Copa de vino tinto"},{"id":"p1084","cat":"carnes","sub":"","name":"Milanesa de pollo","desc":"Acompañado con 2 agregados a elección.","price":11990,"on":true,"fav":false,"ing":"Pechuga de pollo apanada, pan rallado, huevo, 2 agregados a elección","quote":"Milanesa crocante, dorada y generosa.","img":"","specs":"Porción: 1 persona; Picor: sin picante","pair":"Jugo natural"},{"id":"p1085","cat":"carnes","sub":"","name":"Pollo a lo pobre","desc":"","price":11990,"on":true,"fav":false,"ing":"Pechuga de pollo, cebolla caramelizada, 2 huevos fritos, papas fritas","quote":"Pollo a lo pobre: huevos, cebolla y papas, como manda la tradición.","img":"","specs":"Porción: 1 persona abundante; Picor: sin picante","pair":"Cerveza helada"},{"id":"p1086","cat":"carnes","sub":"","name":"Bistec a lo pobre","desc":"","price":13500,"on":true,"fav":false,"ing":"Bistec de vacuno, cebolla caramelizada, 2 huevos fritos, papas fritas","quote":"Bistec a lo pobre, el plato chileno de siempre.","img":"","specs":"Porción: 1 persona abundante; Término: a gusto","pair":"Copa de vino tinto"},{"id":"p1087","cat":"carnes","sub":"","name":"Arroz chaufa con carne","desc":"","price":13500,"on":true,"fav":false,"ing":"Arroz, carne de vacuno, huevo, cebollín, sillao, aceite de ajonjolí, jengibre","quote":"Chaufa de carne al wok, sabroso y bien servido.","img":"","specs":"Porción: 1 persona; Cocción: al wok; Picor: sin picante","pair":"Inca Kola"},{"id":"p1176","cat":"piqueos","sub":"Canastas","name":"Canasta de empanadas de queso","desc":"Canasta de 4 empanadas cocteleras de queso.","price":3990,"on":true,"fav":false,"ing":"Masa frita, queso","quote":"Cuatro empanaditas de queso para empezar con todo.","img":"","imgs":["img/plato-p1176-d59dfaa90b.jpg"],"specs":"Porción: 4 unidades; Ideal para: picar","pair":"Pisco sour o cerveza"},{"id":"p1177","cat":"piqueos","sub":"Canastas","name":"Canasta de papas fritas","desc":"","price":3000,"on":true,"fav":false,"ing":"Papas fritas, sal","quote":"Papas fritas doradas para picar.","img":"","specs":"Porción: 1 canasta; Ideal para: picar","pair":"Cerveza helada"},{"id":"p1181","cat":"piqueos","sub":"Canastas","name":"Canasta alitas de pollo","desc":"Canasta con 6 alitas de pollo bañadas con salsa barbecue.","price":3990,"on":true,"fav":false,"ing":"6 alitas de pollo, salsa barbecue casera","quote":"Alitas en salsa barbecue, para chuparse los dedos.","img":"","specs":"Porción: 6 unidades; Ideal para: picar","pair":"Cerveza helada"},{"id":"p1242","cat":"piqueos","sub":"Canastas","name":"Canasta de bastones de queso","desc":"Canasta con 3 unidades de bastoncitos crujientes llenos de queso.","price":3990,"on":true,"fav":false,"ing":"Queso, masa crocante","quote":"Bastones crujientes con corazón de queso derretido.","img":"","specs":"Porción: 3 unidades; Ideal para: picar","pair":"Mojito clásico"},{"id":"p1247","cat":"piqueos","sub":"Canastas","name":"Canasta de fingers de pollo","desc":"Canasta de dedos de pollo 6 unidades.","price":5990,"on":true,"fav":false,"ing":"6 trozos de pollo apanado","quote":"Dedos de pollo dorados y crocantes.","img":"","specs":"Porción: 6 unidades; Ideal para: picar o para niños","pair":"Bebida o jugo natural"},{"id":"p162","cat":"piqueos","sub":"Con papas fritas","name":"Salchipapa","desc":"","price":6450,"on":true,"fav":false,"ing":"Papas fritas, vienesas, salsas a elección","quote":"El favorito de grandes y chicos.","img":"","specs":"Porción: 1 persona; Ideal para: picar","pair":"Bebida"},{"id":"p27","cat":"piqueos","sub":"Con papas fritas","name":"Papas Mix","desc":"Papas fritas con carne, pollo, y queso","price":13990,"on":true,"fav":false,"ing":"Papas fritas, carne de vacuno, pollo, queso fundido","quote":"Papas, carne, pollo y queso: todo junto y bien mezclado.","img":"","specs":"Porción: 2 personas; Ideal para: compartir","pair":"Ronda de cervezas"},{"id":"p328","cat":"piqueos","sub":"Con papas fritas","name":"Costilla BBQ","desc":"Costillas jugosas bañadas o acompañadas de una salsa BBQ casera, con papas fritas crujientes.","price":18990,"on":true,"fav":false,"ing":"Costillas de cerdo, salsa BBQ casera, papas fritas","quote":"Costillas que se desarman, bañadas en BBQ de la casa.","img":"","specs":"Porción: 1 a 2 personas; Ideal para: compartir","pair":"Cerveza o vino tinto"},{"id":"p360","cat":"piqueos","sub":"Con papas fritas","name":"Alitas BBQ para 2","desc":"8 alitas de pollo bañadas con salsa BBQ casera, acompañado con papas fritas crujientes.","price":16450,"on":true,"fav":false,"ing":"8 alitas de pollo, salsa BBQ casera, papas fritas","quote":"Ocho alitas BBQ con papas, para compartir con calma.","img":"","specs":"Porción: 2 personas; Ideal para: compartir","pair":"Ronda de cervezas"},{"id":"p389","cat":"piqueos","sub":"Con papas fritas","name":"Papa sola","desc":"","price":4990,"on":true,"fav":false,"ing":"Papas fritas, sal","quote":"Una porción de papas fritas recién hechas.","img":"","specs":"Porción: 1 a 2 personas","pair":"Bebida o cerveza"},{"id":"p615","cat":"piqueos","sub":"Con papas fritas","name":"Pichanga para 2","desc":"Cama de papas fritas cubierto con un salteado de trozos de lomo vetado, pollo, longaniza artesanal, cebolla, morrón, cebollín, tomate, zapallo italiano, coronado con huevos y palta","price":25990,"on":true,"fav":false,"ing":"Papas fritas, lomo vetado, pollo, longaniza artesanal, cebolla, morrón, cebollín, tomate, zapallo italiano, huevo, palta","quote":"La pichanga de la casa: carne, pollo, longaniza y un festín de verduras.","img":"","specs":"Porción: 2 personas; Ideal para: compartir","pair":"Ronda de cervezas"},{"id":"p616","cat":"piqueos","sub":"Con papas fritas","name":"Chorrillana para 2","desc":"Cama de papas fritas con trozos de lomo vetado, longaniza artesanal, cebolla caramelizada y coronado con 2 huevos","price":22990,"on":true,"fav":false,"ing":"Papas fritas, lomo vetado, longaniza artesanal, cebolla caramelizada, 2 huevos","quote":"Chorrillana porteña: papas, carne, cebolla y huevo encima.","img":"","specs":"Porción: 2 personas; Ideal para: compartir","pair":"Ronda de cervezas"},{"id":"p760","cat":"piqueos","sub":"Con papas fritas","name":"Chorrillana para 3","desc":"","price":31990,"on":true,"fav":false,"ing":"Papas fritas, lomo vetado, longaniza artesanal, cebolla caramelizada, huevos","quote":"La chorrillana grande, para la mesa completa.","img":"","specs":"Porción: 3 personas; Ideal para: compartir","pair":"Ronda de cervezas"},{"id":"p880","cat":"piqueos","sub":"Con papas fritas","name":"Pichanga para 3","desc":"","price":35990,"on":true,"fav":false,"ing":"Papas fritas, lomo vetado, pollo, longaniza, verduras salteadas, huevos, palta","quote":"Pichanga para tres: abundante, colorida y sabrosa.","img":"","specs":"Porción: 3 personas; Ideal para: compartir","pair":"Ronda de cervezas"},{"id":"p1248","cat":"piqueos","sub":"Con papas fritas","name":"Tabla Inti","desc":"","price":27300,"on":true,"fav":true,"ing":"Selección de carnes, piqueos de la casa y papas fritas","quote":"La tabla de la casa, pensada para picar entre amigos.","img":"","specs":"Porción: 2 a 3 personas; Ideal para: compartir","pair":"Ronda de pisco sour"},{"id":"p453","cat":"piqueos","sub":"Quesadillas","name":"Quesadilla de carne","desc":"De carne y/o pollo","price":13500,"on":true,"fav":false,"ing":"Tortilla de trigo, carne de vacuno, queso fundido, guacamole","quote":"Quesadilla dorada rellena de carne jugosa y queso fundido.","img":"","imgs":["img/plato-p453-d9548eba60.jpg"],"specs":"Porción: 1 a 2 personas; Acompañamiento: guacamole","pair":"Cerveza Corona o margarita"},{"id":"p852","cat":"piqueos","sub":"Quesadillas","name":"Quesadilla de pollo","desc":"","price":11990,"on":true,"fav":false,"ing":"Tortilla de trigo, pollo, queso fundido, guacamole","quote":"Quesadilla de pollo con queso derretido y guacamole.","img":"","imgs":["img/plato-p852-2d14f3b3d6.jpg"],"specs":"Porción: 1 a 2 personas; Acompañamiento: guacamole","pair":"Cerveza Corona o margarita"},{"id":"p853","cat":"piqueos","sub":"Quesadillas","name":"Quesadilla con vegetales","desc":"","price":9990,"on":true,"fav":false,"ing":"Tortilla de trigo, verduras salteadas, queso fundido, guacamole","quote":"Quesadilla vegetal, colorida y llena de sabor.","img":"","specs":"Porción: 1 a 2 personas; Apto: vegetariano","pair":"Limonada"},{"id":"p24","cat":"empanadas","sub":"","name":"Empanada de queso","desc":"","price":3000,"on":true,"fav":false,"ing":"Masa frita, queso","quote":"Empanada frita de queso, el clásico infaltable.","img":"","specs":"Porción: 1 unidad","pair":"Pisco sour"},{"id":"p25","cat":"empanadas","sub":"","name":"Empanada de pulpo","desc":"","price":4000,"on":true,"fav":false,"ing":"Masa frita, pulpo, cebolla, especias","quote":"Empanada de pulpo con sabor a costa.","img":"","specs":"Porción: 1 unidad","pair":"Cerveza helada"},{"id":"p26","cat":"empanadas","sub":"","name":"Empanada de Camarón","desc":"","price":4000,"on":true,"fav":false,"ing":"Masa frita, camarón, cebolla, especias","quote":"Camarón jugoso en masa dorada.","img":"","specs":"Porción: 1 unidad","pair":"Cerveza helada"},{"id":"p183","cat":"empanadas","sub":"","name":"Empanada vegetariana","desc":"Salteado de vegetales basado en morrón zapallo italiano, cebolla, zanahoria acompañada de queso","price":3500,"on":true,"fav":false,"ing":"Masa frita, morrón, zapallo italiano, cebolla, zanahoria, queso","quote":"Empanada vegetariana de verduras salteadas y queso.","img":"","specs":"Porción: 1 unidad; Apto: vegetariano","pair":"Limonada"},{"id":"p590","cat":"empanadas","sub":"","name":"Empanada de loco","desc":"","price":4500,"on":true,"fav":false,"ing":"Masa frita, locos, cebolla, especias","quote":"Empanada de loco, un lujo nortino.","img":"","specs":"Porción: 1 unidad","pair":"Copa de vino blanco"},{"id":"p850","cat":"empanadas","sub":"","name":"Empanada de jaiba","desc":"","price":4500,"on":true,"fav":false,"ing":"Masa frita, jaiba, cebolla, especias","quote":"Empanada de jaiba, suave y marina.","img":"","specs":"Porción: 1 unidad","pair":"Copa de vino blanco"},{"id":"p30","cat":"ensaladas","sub":"","name":"Ensalada César","desc":"Cama de lechuga con pechuga cortada en pequeños pedazos, queso rallado, crutones de pan, bañado con salsa cesar y cubierto con palta","price":10990,"on":true,"fav":false,"ing":"Lechuga, pechuga de pollo, queso rallado, crutones, salsa César, palta","quote":"La César de siempre, fresca y con palta.","img":"","specs":"Porción: 1 persona","pair":"Limonada"},{"id":"p614","cat":"ensaladas","sub":"","name":"Ensalada César con camarón apanado","desc":"Lechuga, 6 camarones apanados en panko, trozos de pan casero, y queso parmesano rallado, acompañado con salsa de la casa.","price":11990,"on":true,"fav":false,"ing":"Lechuga, 6 camarones apanados en panko, pan casero, queso parmesano, salsa de la casa","quote":"César con camarones apanados en panko: fresca y crocante.","img":"","specs":"Porción: 1 persona","pair":"Copa de vino blanco"},{"id":"p790","cat":"ensaladas","sub":"","name":"Camarón apanado","desc":"","price":10990,"on":true,"fav":false,"ing":"Camarones, panko, huevo, salsa de la casa","quote":"Camarones dorados en panko, crocantes y suaves.","img":"","specs":"Porción: 1 persona","pair":"Cerveza helada"},{"id":"p244","cat":"vegetarianos","sub":"","name":"Zucchini relleno vegetariano","desc":"Zapallo italiano relleno de champiñones, zanahoria, morron rojo, cebolla, cebollin y cubierto con queso derretido. Mas una porción de arroz.","price":10990,"on":true,"fav":false,"ing":"Zapallo italiano, champiñones, zanahoria, morrón rojo, cebolla, cebollín, queso, arroz","quote":"Zapallo italiano relleno y gratinado, con arroz.","img":"","specs":"Porción: 1 persona; Apto: vegetariano","pair":"Limonada menta y jengibre"},{"id":"p854","cat":"vegetarianos","sub":"","name":"Hummus con verduras salteadas","desc":"","price":11990,"on":true,"fav":false,"ing":"Garbanzos, tahini, limón, ajo, aceite de oliva, verduras salteadas","quote":"Hummus cremoso con verduras salteadas al momento.","img":"","imgs":["img/plato-p854-4b8f4ae4ac.jpg"],"specs":"Porción: 1 persona; Apto: vegetariano","pair":"Jugo natural"},{"id":"p855","cat":"vegetarianos","sub":"","name":"Tallarín o fetuccini salteado con verduras","desc":"","price":10990,"on":true,"fav":false,"ing":"Tallarín o fetuccini, morrón, cebolla, zanahoria, zapallo italiano, sillao","quote":"Tallarín o fetuccini al wok con verduras frescas.","img":"","specs":"Porción: 1 persona; Apto: vegetariano; Cocción: al wok","pair":"Limonada"},{"id":"p151","cat":"sandwiches","sub":"","name":"Sándwich de pescado","desc":"Pan, pescado frito o a la plancha, con lechuga, tomate, cebolla y mayonesa casera. acompañado con papas fritas","price":12500,"on":true,"fav":false,"ing":"Pan, pescado frito o a la plancha, lechuga, tomate, cebolla, mayonesa casera, papas fritas","quote":"Pescado crocante en pan, con papas fritas al lado.","img":"","imgs":["img/plato-p151-7206fa6e39.jpg","img/plato-p151-032c2a3e64.jpg"],"specs":"Porción: 1 persona; Acompañamiento: papas fritas","pair":"Cerveza helada"},{"id":"p194","cat":"sandwiches","sub":"","name":"Sándwich de pollo","desc":"Pan, pollo a la plancha, lechuga, tomate y mayonesa casera. Acompañado con papas fritas","price":7500,"on":true,"fav":false,"ing":"Pan, pollo a la plancha, lechuga, tomate, mayonesa casera, papas fritas","quote":"Pollo a la plancha en pan, simple y rico.","img":"","specs":"Porción: 1 persona; Acompañamiento: papas fritas","pair":"Jugo natural"},{"id":"p420","cat":"sandwiches","sub":"","name":"Italiano","desc":"Pan, churrasco, palta, tomate y mayonesa casera. Acompañado con papas fritas.","price":9990,"on":true,"fav":false,"ing":"Pan, churrasco, palta, tomate, mayonesa casera, papas fritas","quote":"Tomate, palta y mayo: los colores de la bandera en pan.","img":"","specs":"Porción: 1 persona; Acompañamiento: papas fritas","pair":"Cerveza o jugo natural"},{"id":"p421","cat":"sandwiches","sub":"","name":"Barros Luco","desc":"Pan, churrasco, queso gauda derretido y mayonesa casera. Acompañado con papas fritas.","price":8990,"on":true,"fav":false,"ing":"Pan, churrasco, queso gauda derretido, mayonesa casera, papas fritas","quote":"El Barros Luco: churrasco y queso derretido, sin vueltas.","img":"","specs":"Porción: 1 persona; Acompañamiento: papas fritas","pair":"Cerveza helada"},{"id":"p423","cat":"sandwiches","sub":"","name":"Chacarero","desc":"Pan, churrasco, tomate, aji verde, poroto verde y mayonesa casera. A compañado con papas fritas.","price":9450,"on":true,"fav":false,"ing":"Pan, churrasco, tomate, ají verde, poroto verde, mayonesa casera, papas fritas","quote":"El chacarero chileno, con poroto verde y ají verde.","img":"","specs":"Porción: 1 persona; Picor: suave; Acompañamiento: papas fritas","pair":"Cerveza helada"},{"id":"p167","cat":"menu","sub":"","name":"Menú completo","desc":"","price":8000,"on":true,"fav":false,"ing":"Entrada del día, plato de fondo con agregado, postre del día","quote":"Comida casera de la semana: entrada, fondo y postre.","img":"","specs":"Porción: 1 persona; Disponible: almuerzo; Cambia: todos los días","pair":"Jugo natural o bebida"},{"id":"p318","cat":"menu","sub":"","name":"Colación: pescado frito","desc":"","price":5500,"on":true,"fav":false,"ing":"Pescado frito, agregado del día","quote":"Pescado frito con agregado, rápido y casero.","img":"","specs":"Porción: 1 persona; Disponible: almuerzo","pair":"Bebida"},{"id":"p319","cat":"menu","sub":"","name":"Colación: pescado a la plancha","desc":"","price":5500,"on":true,"fav":false,"ing":"Pescado a la plancha, agregado del día","quote":"Pescado a la plancha con agregado, liviano y casero.","img":"","specs":"Porción: 1 persona; Disponible: almuerzo","pair":"Bebida"},{"id":"p320","cat":"menu","sub":"","name":"Colación: pollo a la plancha","desc":"","price":5500,"on":true,"fav":false,"ing":"Pollo a la plancha, agregado del día","quote":"Pollo a la plancha con agregado, para el día a día.","img":"","specs":"Porción: 1 persona; Disponible: almuerzo","pair":"Bebida"},{"id":"p71","cat":"acomp","sub":"","name":"Arroz perla","desc":"Arroz blanco","price":3000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p70","cat":"acomp","sub":"","name":"Arroz chaufa","desc":"Arroz, cebollin, huevo.","price":3000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p345","cat":"acomp","sub":"","name":"Arroz pesto","desc":"","price":3000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p346","cat":"acomp","sub":"","name":"Fideo blanco","desc":"","price":3000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p586","cat":"acomp","sub":"","name":"Fetuccini al pesto","desc":"","price":4000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p585","cat":"acomp","sub":"","name":"Fetuccini a la crema","desc":"","price":4000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p605","cat":"acomp","sub":"","name":"Fetuccini a la huancaína","desc":"","price":4000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p347","cat":"acomp","sub":"","name":"Papa mayo","desc":"","price":3000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p348","cat":"acomp","sub":"","name":"Papa rústica dorada","desc":"","price":3000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p486","cat":"acomp","sub":"","name":"Puré","desc":"","price":3000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p65","cat":"acomp","sub":"","name":"Ensalada a la chilena","desc":"Cebolla, tomate, cilantro.","price":3000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p349","cat":"acomp","sub":"","name":"Ensalada mixta","desc":"","price":3000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p876","cat":"acomp","sub":"","name":"Risotto de champiñones","desc":"","price":4500,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p1272","cat":"acomp","sub":"","name":"Papas fritas","desc":"","price":3000,"on":true,"fav":false,"ing":"","quote":"Para armar tu plato a la medida.","img":""},{"id":"p1249","cat":"desayunos","sub":"","name":"Paila de huevo con queso + té o café","desc":"","price":4990,"on":true,"fav":false,"ing":"Huevos, queso, pan, té o café","quote":"Paila de huevo con queso y tu té o café.","img":"","specs":"Porción: 1 persona; Disponible: mañana","pair":""},{"id":"p1250","cat":"desayunos","sub":"","name":"Paila de huevo con jamón + té o café","desc":"","price":5300,"on":true,"fav":false,"ing":"Huevos, jamón, pan, té o café","quote":"Paila de huevo con jamón y tu té o café.","img":"","specs":"Porción: 1 persona; Disponible: mañana","pair":""},{"id":"p1251","cat":"desayunos","sub":"","name":"Paila de huevo con tocino + té o café","desc":"","price":5300,"on":true,"fav":false,"ing":"Huevos, tocino, pan, té o café","quote":"Paila de huevo con tocino crocante y tu té o café.","img":"","specs":"Porción: 1 persona; Disponible: mañana","pair":""},{"id":"p1252","cat":"desayunos","sub":"","name":"Combo: Barros Luco + té o café","desc":"","price":6700,"on":true,"fav":false,"ing":"Pan, churrasco, queso derretido, té o café","quote":"Barros Luco al desayuno: para empezar con todo.","img":"","specs":"Porción: 1 persona; Disponible: mañana","pair":""},{"id":"p1253","cat":"desayunos","sub":"","name":"Combo: Ave mayo + té o café","desc":"","price":5500,"on":true,"fav":false,"ing":"Pan, pollo, mayonesa, té o café","quote":"Ave mayo en pan con tu té o café.","img":"","specs":"Porción: 1 persona; Disponible: mañana","pair":""},{"id":"p1254","cat":"desayunos","sub":"","name":"Combo Inti: Tostada de Ave mayo + té o café + jugo natural","desc":"","price":5200,"on":true,"fav":false,"ing":"Pan tostado, pollo, mayonesa, té o café, jugo natural","quote":"Combo Inti: tostada de ave mayo, bebida caliente y jugo natural.","img":"","specs":"Porción: 1 persona; Disponible: mañana","pair":""},{"id":"p1255","cat":"desayunos","sub":"","name":"Combo Inti: Tostada de huevo revuelto + té o café + jugo natural","desc":"","price":4990,"on":true,"fav":false,"ing":"Pan tostado, huevo revuelto, té o café, jugo natural","quote":"Combo Inti: tostada con huevo revuelto, bebida caliente y jugo.","img":"","specs":"Porción: 1 persona; Disponible: mañana","pair":""},{"id":"p1256","cat":"desayunos","sub":"","name":"Combo Inti: Tostada de Palta + té o café + jugo natural","desc":"","price":5200,"on":true,"fav":false,"ing":"Pan tostado, palta, té o café, jugo natural","quote":"Combo Inti: tostada con palta, bebida caliente y jugo.","img":"","specs":"Porción: 1 persona; Disponible: mañana","pair":""},{"id":"p1262","cat":"desayunos","sub":"","name":"Jugo natural pequeño","desc":"","price":2000,"on":true,"fav":false,"ing":"Fruta natural de temporada","quote":"Un vaso chico de jugo natural para acompañar.","img":"","specs":"Porción: vaso pequeño","pair":""},{"id":"p1266","cat":"postres","sub":"","name":"Copa de helado","desc":"Deliciosa combinacion de helados cremosos, ideal para compartir en cualquier momento.Puede elegir 2 sabores.","price":3000,"on":true,"fav":false,"ing":"Helado (2 sabores a elección)","quote":"Dos sabores de helado para cerrar con dulzura.","img":"","specs":"Porción: 1 copa","pair":"Café espresso"},{"id":"p1267","cat":"postres","sub":"","name":"Panqueques de manjar con helado","desc":"Deliciosos rellenos de manjar, con una bola de helado","price":3500,"on":true,"fav":false,"ing":"Panqueques, manjar, helado","quote":"Panqueques rellenos de manjar con helado.","img":"","specs":"Porción: 1 persona","pair":"Café o té"},{"id":"p1268","cat":"postres","sub":"","name":"Tiramisú","desc":"Suave y cremoso postre de inspiración italiana, con un delicado toque de café.","price":3750,"on":true,"fav":false,"ing":"Bizcocho, café, queso crema, cacao","quote":"Tiramisú suave con toque de café.","img":"","specs":"Porción: 1 persona","pair":"Café espresso"},{"id":"p1269","cat":"postres","sub":"","name":"Suspiro limeño","desc":"Tradicional postre peruano, dulce y cremoso, coronado con un suave merengue.","price":3400,"on":true,"fav":true,"ing":"Manjar blanco, yemas, merengue al oporto, canela","quote":"El postre que Lima le regaló al mundo.","img":"","specs":"Porción: 1 persona; Origen: Lima, Perú","pair":"Café cortado"},{"id":"p1270","cat":"postres","sub":"","name":"Cheesecake de maracuyá","desc":"Cremoso cheesecake con el equilibrio perfecto entre dulzor y frescura tropical.","price":4300,"on":true,"fav":false,"ing":"Queso crema, galleta, maracuyá","quote":"Cheesecake de maracuyá: dulce, ácido y tropical.","img":"","specs":"Porción: 1 persona","pair":"Té o café"},{"id":"p1271","cat":"postres","sub":"","name":"Postre del día","desc":"Una especialidad preparada diariamente para sorprenderte con un sabor diferente.","price":3990,"on":true,"fav":false,"ing":"Pregunta por el postre de hoy","quote":"Una sorpresa dulce que cambia cada día.","img":"","specs":"Porción: 1 persona","pair":"Café"},{"id":"p260","cat":"cafeteria","sub":"","name":"Té negro de hoja","desc":"","price":2990,"on":true,"fav":false,"ing":"","quote":"Para la pausa del día.","img":""},{"id":"p440","cat":"cafeteria","sub":"","name":"Leche caliente","desc":"","price":2990,"on":true,"fav":false,"ing":"","quote":"Para la pausa del día.","img":""},{"id":"p101","cat":"cafeteria","sub":"","name":"Café de sobre","desc":"","price":2500,"on":true,"fav":false,"ing":"","quote":"Para la pausa del día.","img":""},{"id":"p104","cat":"cafeteria","sub":"","name":"Té de sobre","desc":"","price":2500,"on":true,"fav":false,"ing":"","quote":"Para la pausa del día.","img":""},{"id":"p256","cat":"cafeteria","sub":"","name":"Mate de sobre","desc":"","price":2500,"on":true,"fav":false,"ing":"","quote":"Para la pausa del día.","img":""},{"id":"p102","cat":"cafeteria","sub":"","name":"Paila de Huevo","desc":"","price":4000,"on":true,"fav":false,"ing":"","quote":"Para la pausa del día.","img":""},{"id":"p1136","cat":"cafeteria","sub":"","name":"Café americano","desc":"","price":3800,"on":true,"fav":false,"ing":"","quote":"Para la pausa del día.","img":""},{"id":"p1137","cat":"cafeteria","sub":"","name":"Espresso","desc":"","price":3200,"on":true,"fav":false,"ing":"","quote":"Para la pausa del día.","img":""},{"id":"p1138","cat":"cafeteria","sub":"","name":"Capuccino","desc":"","price":4500,"on":true,"fav":false,"ing":"","quote":"Para la pausa del día.","img":""},{"id":"p1162","cat":"cafeteria","sub":"","name":"Café latte","desc":"","price":4500,"on":true,"fav":false,"ing":"","quote":"Para la pausa del día.","img":""},{"id":"p1174","cat":"cafeteria","sub":"","name":"Café cortado","desc":"","price":4200,"on":true,"fav":false,"ing":"","quote":"Para la pausa del día.","img":""},{"id":"p40","cat":"jugos","sub":"Con leche","name":"Mango con leche","desc":"","price":5200,"on":true,"fav":false,"ing":"Fruta natural de temporada, leche, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Con leche"},{"id":"p43","cat":"jugos","sub":"Con leche","name":"Maracuyá con leche","desc":"","price":5200,"on":true,"fav":false,"ing":"Fruta natural de temporada, leche, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Con leche"},{"id":"p46","cat":"jugos","sub":"Con leche","name":"Frutilla con leche","desc":"","price":5200,"on":true,"fav":false,"ing":"Fruta natural de temporada, leche, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Con leche"},{"id":"p49","cat":"jugos","sub":"Con leche","name":"Guayaba con leche","desc":"","price":5200,"on":true,"fav":false,"ing":"Fruta natural de temporada, leche, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Con leche"},{"id":"p303","cat":"jugos","sub":"Con leche","name":"Piña con leche","desc":"","price":5200,"on":true,"fav":false,"ing":"Fruta natural de temporada, leche, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Con leche"},{"id":"p337","cat":"jugos","sub":"Con leche","name":"Melón con leche","desc":"","price":5200,"on":true,"fav":false,"ing":"Fruta natural de temporada, leche, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Con leche"},{"id":"p1159","cat":"jugos","sub":"Con leche","name":"Frutos rojos con leche","desc":"","price":6200,"on":true,"fav":false,"ing":"Fruta natural de temporada, leche, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Con leche"},{"id":"p37","cat":"jugos","sub":"Jarra 1,3 L","name":"Limonada","desc":"","price":9990,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Jarra 1,3 L"},{"id":"p39","cat":"jugos","sub":"Jarra 1,3 L","name":"Mango","desc":"","price":9990,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Jarra 1,3 L"},{"id":"p45","cat":"jugos","sub":"Jarra 1,3 L","name":"Frutilla","desc":"","price":9990,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Jarra 1,3 L"},{"id":"p42","cat":"jugos","sub":"Jarra 1,3 L","name":"Maracuyá","desc":"","price":9990,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Jarra 1,3 L"},{"id":"p48","cat":"jugos","sub":"Jarra 1,3 L","name":"Guayaba","desc":"","price":9990,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Jarra 1,3 L"},{"id":"p172","cat":"jugos","sub":"Jarra 1,3 L","name":"Piña","desc":"","price":9990,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Jarra 1,3 L"},{"id":"p336","cat":"jugos","sub":"Jarra 1,3 L","name":"Melón","desc":"","price":9990,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Jarra 1,3 L"},{"id":"p815","cat":"jugos","sub":"Jarra 1,3 L","name":"Limonada menta y jengibre","desc":"","price":10450,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Jarra 1,3 L"},{"id":"p1079","cat":"jugos","sub":"Jarra 1,3 L","name":"Frutos rojos","desc":"","price":12450,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Jarra 1,3 L"},{"id":"p1160","cat":"jugos","sub":"Jarra 1,3 L","name":"Limonada hierba buena y jengibre","desc":"","price":10450,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Jarra 1,3 L"},{"id":"p36","cat":"jugos","sub":"Vaso 400 ml","name":"Limonada","desc":"","price":4200,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Vaso 400 ml"},{"id":"p38","cat":"jugos","sub":"Vaso 400 ml","name":"Mango","desc":"","price":4200,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Vaso 400 ml"},{"id":"p41","cat":"jugos","sub":"Vaso 400 ml","name":"Maracuyá","desc":"","price":4200,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Vaso 400 ml"},{"id":"p47","cat":"jugos","sub":"Vaso 400 ml","name":"Guayaba","desc":"","price":4200,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Vaso 400 ml"},{"id":"p171","cat":"jugos","sub":"Vaso 400 ml","name":"Piña","desc":"","price":4200,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Vaso 400 ml"},{"id":"p44","cat":"jugos","sub":"Vaso 400 ml","name":"Frutilla","desc":"","price":4200,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Vaso 400 ml"},{"id":"p50","cat":"jugos","sub":"Vaso 400 ml","name":"Frutos rojos","desc":"","price":4990,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Vaso 400 ml"},{"id":"p335","cat":"jugos","sub":"Vaso 400 ml","name":"Melón","desc":"","price":4200,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Vaso 400 ml"},{"id":"p721","cat":"jugos","sub":"Vaso 400 ml","name":"Limonada menta y jengibre","desc":"","price":4500,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Vaso 400 ml"},{"id":"p886","cat":"jugos","sub":"Vaso 400 ml","name":"Fusión de frutas","desc":"","price":5990,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Vaso 400 ml"},{"id":"p1161","cat":"jugos","sub":"Vaso 400 ml","name":"Limonada hierba buena y jengibre","desc":"","price":4500,"on":true,"fav":false,"ing":"Fruta natural de temporada, agua, azúcar a gusto","quote":"Fruta natural, recién licuada al momento.","img":"","specs":"Formato: Vaso 400 ml"},{"id":"p1055","cat":"happy","sub":"Cervezas","name":"2 schop grandes Cusqueña","desc":"Dos schop grandes de Cusqueña bien helados.","price":8000,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p660","cat":"happy","sub":"Cervezas","name":"2 schop grandes Stella Artois","desc":"Dos schop grandes de Stella Artois.","price":9000,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p1185","cat":"happy","sub":"Cervezas","name":"2 schop medianos Cusqueña","desc":"Dos schop medianos de Cusqueña.","price":6000,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p659","cat":"happy","sub":"Cervezas","name":"2 schop medianos Stella Artois","desc":"Dos schop medianos de Stella Artois.","price":7000,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p1178","cat":"happy","sub":"Cócteles","name":"Happy piscola","desc":"Dos piscolas para brindar.","price":14000,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p706","cat":"happy","sub":"Cócteles","name":"Happy caipiriña","desc":"Dos caipiriñas.","price":12990,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p1123","cat":"happy","sub":"Cócteles","name":"Happy daiquiri clásico","desc":"Dos daiquiris clásicos.","price":12990,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p767","cat":"happy","sub":"Cócteles","name":"Happy margarita","desc":"Dos margaritas.","price":12500,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p510","cat":"happy","sub":"Cócteles","name":"Happy mojito clásico","desc":"Dos mojitos clásicos.","price":12990,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p511","cat":"happy","sub":"Cócteles","name":"Happy mojito de sabor","desc":"Dos mojitos de sabor.","price":16990,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p656","cat":"happy","sub":"Cócteles","name":"Happy pantera rosa","desc":"Dos panteras rosa.","price":17990,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p655","cat":"happy","sub":"Cócteles","name":"Happy piña colada","desc":"Dos piñas coladas.","price":16990,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p509","cat":"happy","sub":"Cócteles","name":"Happy pisco sour","desc":"Dos pisco sour.","price":11990,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p513","cat":"happy","sub":"Cócteles","name":"Happy Ramazzotti","desc":"Dos Ramazzotti spritz.","price":17990,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p1276","cat":"happy","sub":"Cócteles","name":"Terremoto 2x1","desc":"Dos terremotos por el precio de uno.","price":5990,"on":true,"fav":false,"ing":"","quote":"Mejor de a dos: promoción válida en horario Happy Hour.","specs":"Incluye: 2 unidades; Válido: horario Happy Hour","pair":"","img":""},{"id":"p939","cat":"cocteles","sub":"Con crema","name":"Piña colada","desc":"","price":8990,"on":true,"fav":false,"ing":"Ron blanco, crema de coco, jugo de piña, hielo","quote":"Piña y coco en una copa cremosa, sabor a vacaciones.","img":"","specs":"Tipo: cóctel con crema; Dulzor: alto","pair":""},{"id":"p940","cat":"cocteles","sub":"Con crema","name":"Pantera rosa","desc":"","price":9500,"on":true,"fav":false,"ing":"Licor de frutilla, crema, granadina, vodka, hielo","quote":"Rosado, cremoso y coqueto.","img":"","specs":"Tipo: cóctel con crema; Dulzor: alto","pair":""},{"id":"p941","cat":"cocteles","sub":"Con crema","name":"Ruso blanco","desc":"","price":8990,"on":true,"fav":false,"ing":"Vodka, licor de café, crema, hielo","quote":"Vodka, café y crema: suave como la noche.","img":"","specs":"Tipo: cóctel con crema; Dulzor: medio","pair":""},{"id":"p956","cat":"cocteles","sub":"Con crema","name":"Ruso negro","desc":"Ron blanco, kalhua y azúcar flur/syrup.","price":8990,"on":true,"fav":false,"ing":"Ron blanco, licor de café, syrup, hielo","quote":"Ron y café para los que prefieren lo intenso.","img":"","specs":"Tipo: cóctel corto; Dulzor: medio","pair":""},{"id":"p897","cat":"cocteles","sub":"De la casa","name":"Cóctel Pacífico","desc":"Disfruta de la frescura del mar con este coctel suave y ligero","price":10990,"on":true,"fav":false,"ing":"Destilado de la casa, curaçao azul, jugos cítricos, hielo","quote":"Fresco como la brisa del Pacífico.","img":"","specs":"Tipo: cóctel de la casa; Dulzor: medio","pair":""},{"id":"p1274","cat":"cocteles","sub":"De la casa","name":"Terremoto Sureño","desc":"","price":3990,"on":true,"fav":false,"ing":"Pipeño, helado de piña, granadina","quote":"Terremoto sureño: pipeño, helado de piña y granadina.","img":"","specs":"Tipo: tradicional chileno; Dulzor: alto","pair":""},{"id":"p1275","cat":"cocteles","sub":"De la casa","name":"Sangría","desc":"","price":6500,"on":true,"fav":false,"ing":"Vino tinto, fruta picada, jugo de naranja, licor, hielo","quote":"Sangría de la casa con fruta fresca.","img":"","specs":"Tipo: para compartir; Dulzor: medio","pair":""},{"id":"p693","cat":"cocteles","sub":"Internacionales","name":"Gin de verano","desc":"","price":8500,"on":true,"fav":false,"ing":"Gin, frutas de temporada, agua tónica, hielo","quote":"Gin fresco y frutal para el calor de Iquique.","img":"","specs":"Tipo: gin; Dulzor: bajo","pair":""},{"id":"p819","cat":"cocteles","sub":"Internacionales","name":"Daiquiri sabor","desc":"","price":7990,"on":true,"fav":false,"ing":"Ron blanco, pulpa de fruta, limón, syrup, hielo","quote":"Daiquiri con pulpa de fruta natural.","img":"","specs":"Tipo: frozen; Sabores: maracuyá, mango, frutilla","pair":""},{"id":"p942","cat":"cocteles","sub":"Internacionales","name":"Orgasmo","desc":"","price":8990,"on":true,"fav":false,"ing":"Amaretto, licor de café, Baileys, crema","quote":"Cremoso y dulce, con licores de café y almendra.","img":"","specs":"Tipo: cóctel con crema; Dulzor: alto","pair":""},{"id":"p943","cat":"cocteles","sub":"Internacionales","name":"Aperol","desc":"Hielo, rodajas de naranja, Aperol, espumante y bebida (tonic o sprite).","price":9500,"on":true,"fav":false,"ing":"Aperol, espumante, agua tónica o Sprite, naranja, hielo","quote":"El spritz italiano, naranja y burbujas.","img":"","specs":"Tipo: spritz; Dulzor: medio","pair":""},{"id":"p944","cat":"cocteles","sub":"Internacionales","name":"Ramazzotti","desc":"Hielo rodajas de naranja, ramazzotti, espumante y bebida (tonic o sprite).","price":8990,"on":true,"fav":false,"ing":"Ramazzotti, espumante, agua tónica o Sprite, naranja, hielo","quote":"Ramazzotti con espumante y naranja, ideal para la tarde.","img":"","specs":"Tipo: spritz; Dulzor: medio","pair":""},{"id":"p945","cat":"cocteles","sub":"Internacionales","name":"Gin tonic","desc":"Hielo, rodajas de limon, Gin beafeter, y agua tonica","price":7000,"on":true,"fav":false,"ing":"Gin Beefeater, agua tónica, limón, hielo","quote":"Gin tonic clásico, seco y refrescante.","img":"","specs":"Tipo: gin; Dulzor: bajo","pair":""},{"id":"p946","cat":"cocteles","sub":"Internacionales","name":"Clavo oxidado","desc":"Drambuie, whisky red label, clavo de olor, cascara de naranja y marrasquino.","price":8500,"on":true,"fav":false,"ing":"Whisky Red Label, Drambuie, clavo de olor, piel de naranja","quote":"Clavo oxidado: whisky y Drambuie con aroma a especias.","img":"","specs":"Tipo: corto; Dulzor: medio","pair":""},{"id":"p951","cat":"cocteles","sub":"Internacionales","name":"Piscola","desc":"Hielo, rodajas de limon, pisco mistral y una lata de coca cola (opc. Zero).","price":7990,"on":true,"fav":false,"ing":"Pisco Mistral, Coca-Cola (o Zero), limón, hielo","quote":"La piscola de siempre, con limón y bien helada.","img":"","specs":"Tipo: combinado; Dulzor: medio","pair":""},{"id":"p953","cat":"cocteles","sub":"Internacionales","name":"Margarita","desc":"Tequila, triple sec, zumo de limón y azucar flúor/syrup.","price":7500,"on":true,"fav":false,"ing":"Tequila, triple sec, limón, syrup, sal","quote":"Margarita con borde de sal y mucho limón.","img":"","specs":"Tipo: corto; Dulzor: bajo","pair":""},{"id":"p954","cat":"cocteles","sub":"Internacionales","name":"Caipiriña","desc":"Hielo, Cachaza, zumo de limón y azucar flúor/syrup.","price":6990,"on":true,"fav":false,"ing":"Cachaça, limón, azúcar, hielo","quote":"Caipiriña brasileña, limón machacado y cachaça.","img":"","specs":"Tipo: corto; Dulzor: medio","pair":""},{"id":"p955","cat":"cocteles","sub":"Internacionales","name":"Daiquiri","desc":"Hielo, Ron blanco, zumo de limón, triple sec y azucar flúor/syrup.","price":6990,"on":true,"fav":false,"ing":"Ron blanco, limón, triple sec, syrup, hielo","quote":"Daiquiri clásico: ron, limón y equilibrio.","img":"","specs":"Tipo: corto; Dulzor: medio","pair":""},{"id":"p1285","cat":"cocteles","sub":"Internacionales","name":"Chilcano","desc":"","price":7500,"on":true,"fav":false,"ing":"Pisco, ginger ale, limón, amargo de angostura, hielo","quote":"El chilcano: pisco, ginger ale y limón, el refresco peruano.","img":"","specs":"Tipo: largo; Origen: Perú; Dulzor: bajo","pair":""},{"id":"p901","cat":"cocteles","sub":"Mojitos","name":"Mojito cerveza","desc":"Hierba buena, ron blanco, zumo de limon, syrup y botellin de cerveza.","price":8500,"on":true,"fav":false,"ing":"Hierba buena, ron blanco, limón, syrup, botellín de cerveza","quote":"Mojito con botellín de cerveza, fresco y diferente.","img":"","specs":"Tipo: mojito; Dulzor: medio","pair":""},{"id":"p902","cat":"cocteles","sub":"Mojitos","name":"Mojito cielo","desc":"Hierba buena, ron blanco, zumo de limon, blue curacao, malibu, y soda","price":8500,"on":true,"fav":false,"ing":"Hierba buena, ron blanco, limón, blue curaçao, Malibú, soda","quote":"Azul como el cielo nortino, con coco y ron.","img":"","specs":"Tipo: mojito; Dulzor: medio","pair":""},{"id":"p904","cat":"cocteles","sub":"Mojitos","name":"Mojito irlandés","desc":"Hierba buena, Whisky, red label, zumo de limon, syrup y soda.","price":8500,"on":true,"fav":false,"ing":"Hierba buena, whisky Red Label, limón, syrup, soda","quote":"Mojito con whisky para los que van por más.","img":"","specs":"Tipo: mojito; Dulzor: medio","pair":""},{"id":"p906","cat":"cocteles","sub":"Mojitos","name":"Mojito Infierno","desc":"Hierba buena, ron blanco, zumo de limon, granadina, beafeter pink, frutilla, syrup y soda.","price":9990,"on":true,"fav":false,"ing":"Hierba buena, ron blanco, limón, granadina, Beefeater Pink, frutilla, syrup, soda","quote":"Rojo y encendido: frutilla, gin rosado y granadina.","img":"","specs":"Tipo: mojito; Dulzor: alto","pair":""},{"id":"p907","cat":"cocteles","sub":"Mojitos","name":"Mojito Jager","desc":"Hierba buena, jagermeister, zumo de limon, rodajas de limon, syrup y soda.","price":8500,"on":true,"fav":false,"ing":"Hierba buena, Jägermeister, limón, syrup, soda","quote":"Mojito con Jägermeister, herbal e intenso.","img":"","specs":"Tipo: mojito; Dulzor: medio","pair":""},{"id":"p927","cat":"cocteles","sub":"Mojitos","name":"Mojito clásico","desc":"","price":6990,"on":true,"fav":false,"ing":"Hierba buena, ron blanco, limón, syrup, soda","quote":"El mojito cubano de siempre.","img":"","specs":"Tipo: mojito; Dulzor: medio","pair":""},{"id":"p928","cat":"cocteles","sub":"Mojitos","name":"Mojito de sabor","desc":"","price":8990,"on":true,"fav":false,"ing":"Hierba buena, ron blanco, pulpa de fruta, syrup, soda","quote":"Mojito con pulpa de fruta natural.","img":"","specs":"Tipo: mojito; Sabores: maracuyá, mango, frutilla, piña","pair":""},{"id":"p909","cat":"cocteles","sub":"Sours","name":"Pisco sour chileno flauta","desc":"Pisco capel","price":6500,"on":true,"fav":false,"ing":"Pisco chileno, limón, jarabe de goma, clara de huevo, amargo de angostura","quote":"El sour chileno, suave y bien batido.","img":"","specs":"Tamaño: copa flauta; Pisco: chileno","pair":""},{"id":"p910","cat":"cocteles","sub":"Sours","name":"Pisco sour chileno flauta sabor","desc":"Maracuya, mango, frutilla","price":7500,"on":true,"fav":false,"ing":"Pisco chileno, limón, jarabe de goma, clara de huevo, amargo de angostura, pulpa de fruta","quote":"Pisco sour con pulpa de fruta natural, fresco y frutal.","img":"","specs":"Tamaño: copa flauta; Pisco: chileno; Sabores: maracuyá, mango, frutilla o guayaba","pair":""},{"id":"p911","cat":"cocteles","sub":"Sours","name":"Pisco sour chileno whiskero","desc":"","price":9500,"on":true,"fav":false,"ing":"Pisco chileno, limón, jarabe de goma, clara de huevo, amargo de angostura","quote":"El sour chileno, suave y bien batido.","img":"","specs":"Tamaño: vaso whiskero; Pisco: chileno","pair":""},{"id":"p912","cat":"cocteles","sub":"Sours","name":"Pisco sour chileno whiskero sabor","desc":"Maracuya, mango, guayaba","price":10500,"on":true,"fav":false,"ing":"Pisco chileno, limón, jarabe de goma, clara de huevo, amargo de angostura, pulpa de fruta","quote":"Pisco sour con pulpa de fruta natural, fresco y frutal.","img":"","specs":"Tamaño: vaso whiskero; Pisco: chileno; Sabores: maracuyá, mango, frutilla o guayaba","pair":""},{"id":"p913","cat":"cocteles","sub":"Sours","name":"Pisco sour chileno catedral","desc":"","price":11500,"on":true,"fav":false,"ing":"Pisco chileno, limón, jarabe de goma, clara de huevo, amargo de angostura","quote":"El sour en su versión grande, para disfrutarlo sin apuro.","img":"","specs":"Tamaño: vaso catedral (grande); Pisco: chileno","pair":""},{"id":"p920","cat":"cocteles","sub":"Sours","name":"Pisco sour chileno catedral de sabor","desc":"","price":13500,"on":true,"fav":false,"ing":"Pisco chileno, limón, jarabe de goma, clara de huevo, amargo de angostura, pulpa de fruta","quote":"Pisco sour con pulpa de fruta natural, fresco y frutal.","img":"","specs":"Tamaño: vaso catedral (grande); Pisco: chileno; Sabores: maracuyá, mango, frutilla o guayaba","pair":""},{"id":"p921","cat":"cocteles","sub":"Sours","name":"Pisco sour peruano flauta","desc":"","price":6500,"on":true,"fav":true,"ing":"Pisco peruano, limón, jarabe de goma, clara de huevo, amargo de angostura","quote":"El brindis obligado antes de empezar.","img":"","specs":"Tamaño: copa flauta; Pisco: peruano","pair":""},{"id":"p922","cat":"cocteles","sub":"Sours","name":"Pisco sour peruano flauta sabor","desc":"","price":7500,"on":true,"fav":false,"ing":"Pisco peruano, limón, jarabe de goma, clara de huevo, amargo de angostura, pulpa de fruta","quote":"Pisco sour con pulpa de fruta natural, fresco y frutal.","img":"","specs":"Tamaño: copa flauta; Pisco: peruano; Sabores: maracuyá, mango, frutilla o guayaba","pair":""},{"id":"p923","cat":"cocteles","sub":"Sours","name":"Pisco sour peruano whiskero","desc":"","price":10500,"on":true,"fav":false,"ing":"Pisco peruano, limón, jarabe de goma, clara de huevo, amargo de angostura","quote":"El brindis obligado antes de empezar.","img":"","specs":"Tamaño: vaso whiskero; Pisco: peruano","pair":""},{"id":"p924","cat":"cocteles","sub":"Sours","name":"Pisco sour peruano whiskero sabor","desc":"","price":11990,"on":true,"fav":false,"ing":"Pisco peruano, limón, jarabe de goma, clara de huevo, amargo de angostura, pulpa de fruta","quote":"Pisco sour con pulpa de fruta natural, fresco y frutal.","img":"","specs":"Tamaño: vaso whiskero; Pisco: peruano; Sabores: maracuyá, mango, frutilla o guayaba","pair":""},{"id":"p925","cat":"cocteles","sub":"Sours","name":"Pisco sour peruano catedral","desc":"","price":12500,"on":true,"fav":false,"ing":"Pisco peruano, limón, jarabe de goma, clara de huevo, amargo de angostura","quote":"El sour en su versión grande, para disfrutarlo sin apuro.","img":"","specs":"Tamaño: vaso catedral (grande); Pisco: peruano","pair":""},{"id":"p926","cat":"cocteles","sub":"Sours","name":"Pisco sour peruano catedral de sabor","desc":"","price":14990,"on":true,"fav":false,"ing":"Pisco peruano, limón, jarabe de goma, clara de huevo, amargo de angostura, pulpa de fruta","quote":"Pisco sour con pulpa de fruta natural, fresco y frutal.","img":"","specs":"Tamaño: vaso catedral (grande); Pisco: peruano; Sabores: maracuyá, mango, frutilla o guayaba","pair":""},{"id":"p350","cat":"cervezas","sub":"Botellines","name":"Corona 330 ml","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Botellines"},{"id":"p351","cat":"cervezas","sub":"Botellines","name":"Heineken 330 ml","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Botellines"},{"id":"p353","cat":"cervezas","sub":"Botellines","name":"Stella Artois 330 ml","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Botellines"},{"id":"p400","cat":"cervezas","sub":"Botellines","name":"Cusqueña 330 ml","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Botellines"},{"id":"p531","cat":"cervezas","sub":"Botellines","name":"Corona sin alcohol","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Botellines"},{"id":"p537","cat":"cervezas","sub":"Botellines","name":"Kunstmann Torobayo 330 cc","desc":"","price":4000,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Botellines"},{"id":"p577","cat":"cervezas","sub":"Botellines","name":"Calafate 330 cc","desc":"","price":4000,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Botellines"},{"id":"p352","cat":"cervezas","sub":"Botellines","name":"Budweiser 330 ml","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Botellines"},{"id":"p1257","cat":"cervezas","sub":"Botellines","name":"Cuello Negro Ámbar","desc":"","price":5000,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Botellines"},{"id":"p1258","cat":"cervezas","sub":"Botellines","name":"Cuello Negro Stout","desc":"","price":5000,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Botellines"},{"id":"p727","cat":"cervezas","sub":"Schop","name":"Schop Cusqueña","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Schop"},{"id":"p493","cat":"cervezas","sub":"Schop","name":"Schop Stella Artois","desc":"","price":4000,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Schop"},{"id":"p725","cat":"cervezas","sub":"Schop","name":"Schop grande Cusqueña","desc":"","price":4500,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Schop"},{"id":"p653","cat":"cervezas","sub":"Schop","name":"Schop grande Stella Artois","desc":"","price":5000,"on":true,"fav":false,"ing":"","quote":"Bien helada, como debe ser.","img":"","specs":"Formato: Schop"},{"id":"p359","cat":"vinos","sub":"","name":"Misiones de Rengo Gran Reserva Cabernet Sauvignon","desc":"","price":18000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml; Cepa: Cabernet Sauvignon"},{"id":"p425","cat":"vinos","sub":"","name":"Misiones de Rengo Gran Reserva Merlot","desc":"","price":18000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml; Cepa: Merlot"},{"id":"p562","cat":"vinos","sub":"","name":"Castillo de Molina Gran Reserva Cabernet Sauvignon","desc":"","price":18000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml; Cepa: Cabernet Sauvignon"},{"id":"p377","cat":"vinos","sub":"","name":"Misiones de Rengo Gran Reserva Carménère","desc":"","price":18000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml; Cepa: Carménère"},{"id":"p542","cat":"vinos","sub":"","name":"Misiones de Rengo Gran Reserva Red Blend","desc":"","price":18000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml; Cepa: Red Blend"},{"id":"p483","cat":"vinos","sub":"","name":"Castillo de Molina Gran Reserva Carménère","desc":"","price":18000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml; Cepa: Carménère"},{"id":"p490","cat":"vinos","sub":"","name":"Vino blanco personal","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella personal"},{"id":"p491","cat":"vinos","sub":"","name":"Vino tinto personal","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella personal"},{"id":"p638","cat":"vinos","sub":"","name":"Copa de espumante","desc":"","price":3000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Copa"},{"id":"p716","cat":"vinos","sub":"","name":"Misiones de Rengo Merlot","desc":"","price":10000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml; Cepa: Merlot"},{"id":"p770","cat":"vinos","sub":"","name":"Misiones de Rengo Reserva Merlot","desc":"","price":15000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml; Cepa: Merlot"},{"id":"p894","cat":"vinos","sub":"","name":"Vino blanco 120 (750 ml)","desc":"","price":8500,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml"},{"id":"p966","cat":"vinos","sub":"","name":"Carmen Reserva Merlot","desc":"","price":15000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml; Cepa: Merlot"},{"id":"p1117","cat":"vinos","sub":"","name":"Carmen Gran Reserva","desc":"","price":18000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml"},{"id":"p1241","cat":"vinos","sub":"","name":"120 Tres Medallas (750 ml)","desc":"","price":15000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml"},{"id":"p1264","cat":"vinos","sub":"","name":"Castillo de Molina Gran Reserva Red Blend","desc":"","price":18000,"on":true,"fav":false,"ing":"","quote":"Para acompañar la comida con calma.","img":"","specs":"Formato: Botella 750 ml; Cepa: Red Blend"},{"id":"p967","cat":"destilados","sub":"Bajativos","name":"Jägermeister","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Bajativos"},{"id":"p968","cat":"destilados","sub":"Bajativos","name":"Baileys","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Bajativos"},{"id":"p969","cat":"destilados","sub":"Bajativos","name":"Kahlúa","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Bajativos"},{"id":"p970","cat":"destilados","sub":"Bajativos","name":"Granadina","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Bajativos"},{"id":"p971","cat":"destilados","sub":"Bajativos","name":"Licor de menta","desc":"","price":2000,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Bajativos"},{"id":"p972","cat":"destilados","sub":"Bajativos","name":"Licor de manzanilla","desc":"","price":2000,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Bajativos"},{"id":"p973","cat":"destilados","sub":"Bajativos","name":"Amaretto","desc":"","price":2000,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Bajativos"},{"id":"p1259","cat":"destilados","sub":"Gin y vodka","name":"Gin Beefeater","desc":"","price":6450,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Gin y vodka"},{"id":"p1277","cat":"destilados","sub":"Gin y vodka","name":"Vodka Absolut","desc":"","price":8000,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Gin y vodka"},{"id":"p1119","cat":"destilados","sub":"Piscos","name":"Mistral 35°","desc":"Con bebida a elección.","price":6000,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Piscos"},{"id":"p1120","cat":"destilados","sub":"Piscos","name":"Mistral 40°","desc":"Con bebida a elección.","price":6500,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Piscos"},{"id":"p1121","cat":"destilados","sub":"Piscos","name":"Mistral de manzana","desc":"Con bebida a elección.","price":7000,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Piscos"},{"id":"p1122","cat":"destilados","sub":"Piscos","name":"Alto del Carmen","desc":"Con bebida a elección.","price":7000,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Piscos"},{"id":"p1126","cat":"destilados","sub":"Tequila","name":"Shot José Cuervo","desc":"","price":4000,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Tequila"},{"id":"p1129","cat":"destilados","sub":"Tequila","name":"Shot Olmeca","desc":"","price":3500,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Tequila"},{"id":"p957","cat":"destilados","sub":"Whiskys","name":"Whisky Red Label","desc":"Con una bebida a elección.","price":6990,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Whiskys"},{"id":"p958","cat":"destilados","sub":"Whiskys","name":"Whisky Black Label","desc":"Con una bebida a elección.","price":9500,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Whiskys"},{"id":"p959","cat":"destilados","sub":"Whiskys","name":"Jack Daniel's Fire","desc":"Con una bebida a elección.","price":9500,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Whiskys"},{"id":"p960","cat":"destilados","sub":"Whiskys","name":"Jack Daniel's Apple","desc":"Con una bebida a elección.","price":9990,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Whiskys"},{"id":"p982","cat":"destilados","sub":"Whiskys","name":"Jack Daniel's","desc":"Vaso con una bebida a elección.","price":9200,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Whiskys"},{"id":"p1240","cat":"destilados","sub":"Whiskys","name":"Jack Daniel's Honey","desc":"Vaso con una bebida a elección.","price":9500,"on":true,"fav":false,"ing":"","quote":"Para el bajativo o la buena conversa.","img":"","specs":"Tipo: Whiskys"},{"id":"p1066","cat":"bebidas","sub":"1,5 litros","name":"Coca-Cola 1,5 L","desc":"","price":4500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: 1,5 litros"},{"id":"p1067","cat":"bebidas","sub":"1,5 litros","name":"Inca Kola 1,5 L","desc":"","price":4500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: 1,5 litros"},{"id":"p1068","cat":"bebidas","sub":"1,5 litros","name":"Pepsi 1,5 L","desc":"","price":4500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: 1,5 litros"},{"id":"p1069","cat":"bebidas","sub":"1,5 litros","name":"Coca-Cola Zero 1,5 L","desc":"","price":4500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: 1,5 litros"},{"id":"p1071","cat":"bebidas","sub":"1,5 litros","name":"Bilz 1,5 L","desc":"","price":4500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: 1,5 litros"},{"id":"p1074","cat":"bebidas","sub":"1,5 litros","name":"Kem 1,5 L","desc":"","price":4500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: 1,5 litros"},{"id":"p1124","cat":"bebidas","sub":"1,5 litros","name":"Pepsi Zero 1,5 L","desc":"","price":4500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: 1,5 litros"},{"id":"p53","cat":"bebidas","sub":"Lata / botella","name":"Agua mineral con gas 330 ml","desc":"","price":2000,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p54","cat":"bebidas","sub":"Lata / botella","name":"Agua mineral sin gas 330 ml","desc":"","price":2000,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p55","cat":"bebidas","sub":"Lata / botella","name":"Coca-Cola 350 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p57","cat":"bebidas","sub":"Lata / botella","name":"Fanta 350 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p58","cat":"bebidas","sub":"Lata / botella","name":"Sprite 350 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p334","cat":"bebidas","sub":"Lata / botella","name":"Inca Kola 350 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p546","cat":"bebidas","sub":"Lata / botella","name":"Pepsi 350 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p56","cat":"bebidas","sub":"Lata / botella","name":"Coca-Cola Zero 350 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p292","cat":"bebidas","sub":"Lata / botella","name":"Sprite zero 350 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p293","cat":"bebidas","sub":"Lata / botella","name":"Fanta zero 350 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p750","cat":"bebidas","sub":"Lata / botella","name":"Pepsi Zero 350 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p370","cat":"bebidas","sub":"Lata / botella","name":"Ginger ale con azúcar 310 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p371","cat":"bebidas","sub":"Lata / botella","name":"Ginger Ale sin azúcar 310 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p372","cat":"bebidas","sub":"Lata / botella","name":"Agua tónica 350 ml","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p710","cat":"bebidas","sub":"Lata / botella","name":"Agua tónica sin azúcar","desc":"","price":2200,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Lata / botella"},{"id":"p397","cat":"bebidas","sub":"Mini 220 ml","name":"Coca-Cola Zero mini","desc":"","price":1500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Mini 220 ml"},{"id":"p398","cat":"bebidas","sub":"Mini 220 ml","name":"Coca-Cola mini","desc":"","price":1500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Mini 220 ml"},{"id":"p399","cat":"bebidas","sub":"Mini 220 ml","name":"Sprite mini","desc":"","price":1500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Mini 220 ml"},{"id":"p778","cat":"bebidas","sub":"Mini 220 ml","name":"Fanta mini","desc":"","price":1500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Mini 220 ml"},{"id":"p1065","cat":"bebidas","sub":"Mini 220 ml","name":"Sprite Zero mini","desc":"","price":1500,"on":true,"fav":false,"ing":"","quote":"Bien helada.","img":"","specs":"Formato: Mini 220 ml"}],"info":{"whatsapp":"56974629597","address":"Baquedano 764, Iquique","hours":"Lun–Jue 9:00–22:30 · Vie 9:00–23:30 · Sáb 9:30–23:00 · Dom 9:30–21:30","transfer":"","hero":"img/portada-e3b3e81e37.jpg","logo":"img/logo-fdbf124f11.webp","gallery":["img/portada-e3b3e81e37.jpg","img/bienvenida-51425ae5f8.jpg","img/bienvenida-fd0a196173.jpg","img/bienvenida-4b93ad7d51.jpg"],"name":"Inti Phajsi","tagline":"Sabor criollo y cultura","maps":"https://www.google.com/maps/search/?api=1&query=Inti%20Phajsi%20Restaurante&query_place_id=ChIJf80sc5gRUpERE8fgDc_dt-4","instagram":"inti_phajsi32","tiktok":"inti_phajsi32","about":[{"img":"img/local-d5071ea309.jpg","cap":"Nuestro comedor"},{"img":"img/local-8d8d9ff41f.jpg","cap":"La barra"},{"img":"img/local-72629dc8e3.jpg","cap":"Coctelería de la casa"},{"img":"img/local-2bd6fb0645.jpg","cap":"Cultura viva en Baquedano"},{"img":"img/local-77cf057ae9.jpg","cap":"Inti Phajsi: sol y luna"},{"img":"img/local-7c7338a246.jpg","cap":"Nuestra carta en la entrada"}],"week":[{"open":"09:30","close":"21:30"},{"open":"09:00","close":"22:30"},{"open":"09:00","close":"22:30"},{"open":"09:00","close":"22:30"},{"open":"09:00","close":"22:30"},{"open":"09:00","close":"23:30"},{"open":"09:30","close":"23:00"}]},"v":1}</script>
+<div id="shell"><div id="welcome" class="welcome" hidden></div><header id="hero" class="hero"></header><nav class="catbar" aria-label="Categorías"><div class="wrap"><div id="cats" class="cats"></div><button id="cartbtn" class="iconbtn" aria-label="Ver pedido" hidden></button></div></nav><main class="wrap"><div class="search"><label for="q" class="sr">Buscar en la carta</label><input id="q" type="search" placeholder="Busca un plato, trago o ingrediente" autocomplete="off"></div><div id="menu"></div></main><div id="cartbar" class="cartbar" hidden></div><div id="admin" class="admin" hidden></div><div id="toast" class="toast" role="status" hidden></div></div>
+<script id="app">(function(){
+"use strict";
+/* ===== Esqueleto exacto del documento (para republicar desde el panel) ===== */
+var SKEL_OPEN = "";
+var SHELL = "<div id=\"shell\"><div id=\"welcome\" class=\"welcome\" hidden><\/div><header id=\"hero\" class=\"hero\"><\/header><nav class=\"catbar\" aria-label=\"Categor\u00edas\"><div class=\"wrap\"><div id=\"cats\" class=\"cats\"><\/div><button id=\"cartbtn\" class=\"iconbtn\" aria-label=\"Ver pedido\" hidden><\/button><\/div><\/nav><main class=\"wrap\"><div class=\"search\"><label for=\"q\" class=\"sr\">Buscar en la carta<\/label><input id=\"q\" type=\"search\" placeholder=\"Busca un plato, trago o ingrediente\" autocomplete=\"off\"><\/div><div id=\"menu\"><\/div><\/main><div id=\"cartbar\" class=\"cartbar\" hidden><\/div><div id=\"admin\" class=\"admin\" hidden><\/div><div id=\"toast\" class=\"toast\" role=\"status\" hidden><\/div><\/div>";
+var SKEL_CLOSE = "\n</bo" + "dy></ht" + "ml>";
+var FONT_LINK = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Young+Serif&display=swap">';
+
+var DATA = JSON.parse(document.getElementById("menu-data").textContent);
+var $ = function(s, r){ return (r || document).querySelector(s); };
+var esc = function(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
+var money = function(n){ return "$" + Math.round(n || 0).toLocaleString("es-CL"); };
+var store = {
+  get: function(k){ try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } },
+  set: function(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+};
+
+var ICON = {
+  table: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 9h18M5 9v11M19 9v11M8 9V5h8v4"/><path d="M9 3v2M12 2v3M15 3v2"/></svg>',
+  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>',
+  bag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>',
+  trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
+  up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 14 6-6 6 6"/></svg>',
+  down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 10 6 6 6-6"/></svg>',
+  pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+  ig: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>',
+  tt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.8 2.4 4.6 5 4.8"/></svg>',
+  glass: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 3h10l-1 7a4 4 0 0 1-8 0z"/><path d="M12 14v7M8 21h8"/></svg>',
+  plate: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><path d="M2 5v5a2 2 0 0 0 2 2v8M4 5v4M22 5c-1.5 0-2.5 2-2.5 5s1 3 2.5 3v7"/></svg>',
+  gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>'
+};
+
+var state = {
+  mode: null, q: "", cart: {}, delivery: "retiro",
+  canEdit: false, artifact: null, admin: null, open: {}
+};
+var saved = store.get("ip-mode");
+if (saved && saved.t && Date.now() - saved.t < 6 * 3600e3) state.mode = saved.m;
+state.cart = store.get("ip-cart") || {};
+if (location.hash === "#casa") state.mode = "casa";
+if (location.hash === "#local") state.mode = "local";
+
+function cats(){ return DATA.cats.filter(function(c){ return c.on; }); }
+function itemsOf(cid){ return DATA.items.filter(function(i){ return i.cat === cid && i.on; }); }
+function itemById(id){ for (var i = 0; i < DATA.items.length; i++) if (DATA.items[i].id === id) return DATA.items[i]; return null; }
+function imgsOf(it){ return (it.imgs && it.imgs.length) ? it.imgs : (it.img ? [it.img] : []); }
+function cartCount(){ var n = 0; for (var k in state.cart) n += state.cart[k]; return n; }
+function cartTotal(){ var t = 0; for (var k in state.cart){ var it = itemById(k); if (it) t += it.price * state.cart[k]; } return t; }
+function saveCart(){ for (var k in state.cart) if (!state.cart[k] || !itemById(k)) delete state.cart[k]; store.set("ip-cart", state.cart); }
+
+var SUN = '<svg viewBox="0 0 40 40" fill="currentColor"><circle cx="20" cy="20" r="8"/><g stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 3v5M20 32v5M3 20h5M32 20h5M8 8l3.5 3.5M28.5 28.5 32 32M8 32l3.5-3.5M28.5 11.5 32 8"/></g></svg>';
+var DAYS = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+function toMin(t){ var p = String(t || "").split(":"); return p.length < 2 ? null : (+p[0]) * 60 + (+p[1]); }
+function nowSantiago(){
+  try {
+    var parts = new Intl.DateTimeFormat("en-US", {timeZone: "America/Santiago", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false}).formatToParts(new Date());
+    var o = {}; parts.forEach(function(p){ o[p.type] = p.value; });
+    return {d: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(o.weekday), m: (+o.hour % 24) * 60 + (+o.minute)};
+  } catch(e){ var n = new Date(); return {d: n.getDay(), m: n.getHours() * 60 + n.getMinutes()}; }
+}
+function openStatus(i){
+  var w = i.week; if (!w || w.length !== 7) return null;
+  var n = nowSantiago(), t = w[n.d] || {}, o = toMin(t.open), c = toMin(t.close);
+  if (o != null && c != null && n.m >= o && n.m < c) return {open: true, text: "Abierto ahora · cierra a las " + t.close};
+  if (o != null && n.m < o) return {open: false, text: "Cerrado · abre hoy a las " + t.open};
+  for (var k = 1; k <= 7; k++){ var d = (n.d + k) % 7, x = w[d] || {}; if (x.open) return {open: false, text: "Cerrado · abre " + (k === 1 ? "mañana" : DAYS[d].toLowerCase()) + " a las " + x.open}; }
+  return null;
+}
+function hoursBlock(i){
+  var w = i.week; if (!w || w.length !== 7) return "";
+  var st = openStatus(i), today = nowSantiago().d;
+  var order = [1,2,3,4,5,6,0];
+  return '<details class="hours">' +
+    '<summary>' + (st ? '<span class="dot' + (st.open ? ' on' : '') + '"></span>' + esc(st.text) : 'Horario') + '<span class="see">Ver horario</span></summary>' +
+    '<ul>' + order.map(function(d){ var x = w[d] || {}; return '<li' + (d === today ? ' class="today"' : '') + '><span>' + DAYS[d] + '</span><span>' + (x.open ? esc(x.open) + ' – ' + esc(x.close) : 'Cerrado') + '</span></li>'; }).join("") + '</ul></details>';
+}
+function social(i, cls){
+  var out = [];
+  if (i.maps) out.push('<a class="' + cls + '" href="' + esc(i.maps) + '" target="_blank" rel="noopener">' + ICON.pin + '<span>Cómo llegar</span></a>');
+  if (i.instagram) out.push('<a class="' + cls + '" href="https://www.instagram.com/' + esc(i.instagram.replace(/^@/, "")) + '/" target="_blank" rel="noopener">' + ICON.ig + '<span>Instagram</span></a>');
+  if (i.tiktok) out.push('<a class="' + cls + '" href="https://www.tiktok.com/@' + esc(i.tiktok.replace(/^@/, "")) + '" target="_blank" rel="noopener">' + ICON.tt + '<span>TikTok</span></a>');
+  return out.join("");
+}
+/* ================= Render: bienvenida ================= */
+function renderWelcome(){
+  var el = $("#welcome");
+  if (state.mode){ el.hidden = true; el.innerHTML = ""; return; }
+  var i = DATA.info;
+  el.hidden = false;
+  el.innerHTML =
+    ((i.gallery && i.gallery.length) ? i.gallery : [i.hero]).map(function(g, k){ return '<div class="bg' + (k ? '' : ' on') + '" style="background-image:url(' + g + ')"></div>'; }).join("") + '<div class="shade"></div>' +
+    '<div class="inner">' +
+      '<div class="brand"><img src="' + i.logo + '" alt="Logo ' + esc(i.name) + '"><div><h1>' + esc(i.name) + '</h1><p>' + esc(i.tagline) + '</p></div></div>' +
+      '<div class="tejido" aria-hidden="true"></div>' +
+      '<h2>¿Desde dónde nos visitas?</h2>' +
+      '<div class="choices">' +
+        '<button class="choice" data-mode="local"><span class="ic">' + ICON.table + '</span><span><b>Estoy en el restaurante</b><span>Mira la carta y pide tu orden al garzón</span></span><span class="go">›</span></button>' +
+        '<button class="choice" data-mode="casa"><span class="ic">' + ICON.home + '</span><span><b>Estoy en casa</b><span>Arma tu pedido y envíalo por WhatsApp</span></span><span class="go">›</span></button>' +
+      '</div>' +
+      hoursBlock(i) +
+      '<div class="links">' + social(i, "lk") + '</div>' +
+      '<p class="aymara"><em>Inti</em>, sol · <em>Phajsi</em>, luna. Cocina peruana en ' + esc(i.city || "Iquique") + '.</p>' +
+    '</div>';
+}
+var slideT = null;
+function slides(){
+  clearInterval(slideT);
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) return;
+  slideT = setInterval(function(){
+    var bs = document.querySelectorAll("#welcome .bg"); if (bs.length < 2 || $("#welcome").hidden){ clearInterval(slideT); return; }
+    var k = 0; bs.forEach(function(b, j){ if (b.classList.contains("on")) k = j; });
+    bs[k].classList.remove("on"); bs[(k + 1) % bs.length].classList.add("on");
+  }, 4200);
+}
+function setMode(m){
+  clearInterval(slideT);
+  state.mode = m; store.set("ip-mode", {m: m, t: Date.now()});
+  renderWelcome(); renderAll();
+  window.scrollTo(0, 0);
+}
+
+/* ================= Render: carta ================= */
+function itemRow(it){
+  var im = imgsOf(it), qty = state.cart[it.id] || 0;
+  return '<div class="item" role="button" tabindex="0" data-open="' + it.id + '">' +
+    (im.length ? '<img class="thumb" src="' + im[0] + '" alt="" loading="lazy">' : '<span class="nothumb"></span>') +
+    '<span class="tx"><span class="nm">' + esc(it.name) + (it.fav ? '<span class="badge">Recomendado</span>' : '') + '</span>' +
+    (it.desc ? '<span class="ds">' + esc(it.desc) + '</span>' : '') + '</span>' +
+    '<span class="rt"><span class="price">' + money(it.price) + '</span>' +
+    (state.mode === "casa" ? '<button class="add' + (qty ? ' has' : '') + '" data-add="' + it.id + '" aria-label="Agregar ' + esc(it.name) + '">' + (qty ? qty : '+') + '</button>' : '') +
+    '</span></div>';
+}
+function renderMain(){
+  var i = DATA.info, h = "";
+  $("#hero").style.backgroundImage = "url(" + i.hero + ")";
+  $("#hero").innerHTML = '<div class="wrap"><div class="brand"><img src="' + i.logo + '" alt="Logo ' + esc(i.name) + '"><div><h1>' + esc(i.name) + '</h1><p>' + esc(i.tagline) + '</p></div></div>' +
+    '<div class="hero-meta">' +
+      '<button class="chip mode" data-switch>' + (state.mode === "casa" ? ICON.home + ' Pedido a domicilio · cambiar' : ICON.table + ' En el restaurante · cambiar') + '</button>' +
+      (function(){ var st = openStatus(i); return st ? '<span class="chip"><span class="dot' + (st.open ? ' on' : '') + '"></span>' + esc(st.text) + '</span>' : (i.hours ? '<span class="chip">' + esc(i.hours) + '</span>' : ''); })() +
+      (i.address ? (i.maps ? '<a class="chip" href="' + esc(i.maps) + '" target="_blank" rel="noopener">' + ICON.pin + esc(i.address) + '</a>' : '<span class="chip">' + esc(i.address) + '</span>') : '') +
+      (i.instagram ? '<a class="chip" href="https://www.instagram.com/' + esc(i.instagram.replace(/^@/, "")) + '/" target="_blank" rel="noopener">' + ICON.ig + 'Instagram</a>' : '') +
+      (i.tiktok ? '<a class="chip" href="https://www.tiktok.com/@' + esc(i.tiktok.replace(/^@/, "")) + '" target="_blank" rel="noopener">' + ICON.tt + 'TikTok</a>' : '') +
+      (state.canEdit ? '<button class="chip" data-admin>' + ICON.gear + ' Administrar</button>' : '') +
+    '</div></div>';
+
+  var cs = cats().filter(function(c){ return itemsOf(c.id).length; });
+  $("#cats").innerHTML = cs.map(function(c){ return '<a href="#c-' + c.id + '" data-cat="' + c.id + '">' + esc(c.name) + '</a>'; }).join("");
+  var cb = $("#cartbtn");
+  cb.hidden = state.mode !== "casa";
+  cb.innerHTML = ICON.bag + (cartCount() ? '<span class="n">' + cartCount() + '</span>' : '');
+
+  if (state.mode === "local") h += '<div class="note"><b>Estás en el restaurante.</b> Elige con calma y pide tu orden al garzón; él la ingresa directo a cocina.</div>';
+  else h += '<div class="note"><b>Pedido a domicilio o para retirar.</b> Agrega platos con <b>+</b> y envía tu pedido por WhatsApp. El pago se coordina por transferencia.</div>';
+
+  var q = state.q.trim().toLowerCase();
+  if (q){
+    var nq = norm(q);
+    var res = DATA.items.filter(function(it){ return it.on && catOn(it.cat) && norm(it.name + " " + it.desc + " " + (it.ing || "")).indexOf(nq) > -1; });
+    h += '<section class="sec"><div class="sec-head"><h2>Resultados</h2><p>' + res.length + ' plato' + (res.length === 1 ? '' : 's') + ' para «' + esc(state.q) + '»</p></div>' +
+      (res.length ? '<div class="items">' + res.map(itemRow).join("") + '</div>' : '<p class="empty">No encontramos ese plato. Prueba con otra palabra.</p>') + '</section>';
+  } else {
+    var recs = DATA.items.filter(function(it){ return it.on && it.fav && catOn(it.cat); }).sort(function(a, b){ return (imgsOf(b).length ? 1 : 0) - (imgsOf(a).length ? 1 : 0); });
+    if (recs.length){
+      h += '<section class="recs"><h3>Recomendados de la casa</h3><div class="rec-row">' + recs.map(function(it){
+        var im = imgsOf(it);
+        return '<button class="rec" data-open="' + it.id + '"><span class="ph">' + (im.length ? '<img src="' + im[0] + '" alt="" loading="lazy">' : ICON.plate) + '</span>' +
+          '<span class="t"><b>' + esc(it.name) + '</b>' + (it.quote ? '<q>' + esc(it.quote) + '</q>' : '') + '<span class="price">' + money(it.price) + '</span></span></button>';
+      }).join("") + '</div></section>';
+    }
+    cs.forEach(function(c){
+      var its = itemsOf(c.id), subs = [];
+      its.forEach(function(it){ if (subs.indexOf(it.sub || "") < 0) subs.push(it.sub || ""); });
+      var op = !!state.open[c.id];
+      h += '<section class="sec' + (op ? ' open' : '') + '" id="c-' + c.id + '">' +
+        '<button class="sec-head toggle' + (c.img ? ' ban' : ' plain') + '" data-togcat="' + c.id + '" aria-expanded="' + op + '"' + (c.img ? ' style="background-image:url(' + c.img + ')"' : '') + '>' +
+        '<h2>' + esc(c.name) + '</h2>' + (c.tag ? '<p>' + esc(c.tag) + '</p>' : '') + '<div class="tejido" aria-hidden="true"></div>' +
+        '<span class="sec-cta"><span>' + its.length + (its.length === 1 ? ' opción' : ' opciones') + '</span><span class="chev" aria-hidden="true">' + ICON.down + '</span></span></button>' +
+        '<div class="sec-body"' + (op ? '' : ' hidden') + '>';
+      subs.forEach(function(s){
+        if (s && subs.length > 1) h += '<p class="sub">' + esc(s) + '</p>';
+        h += '<div class="items">' + its.filter(function(it){ return (it.sub || "") === s; }).map(itemRow).join("") + '</div>';
+      });
+      h += '</div></section>';
+    });
+  }
+  if (!q && i.about && i.about.length){
+    h += '<section class="about"><h3>Así es ' + esc(i.name) + '</h3><p class="small" style="margin:0 0 10px">' + esc(i.address || "") + '</p>' + hoursBlock(i) + '<div class="about-row">' +
+      i.about.map(function(a){ return '<figure><img src="' + a.img + '" alt="' + esc(a.cap) + '" loading="lazy"><figcaption>' + esc(a.cap) + '</figcaption></figure>'; }).join("") + '</div></section>';
+  }
+  h += '<footer><div class="links">' + social(i, "lk") + '</div><div class="row"><span>' + esc(i.name) + (i.address ? ' · ' + esc(i.address) : '') + '</span>' +
+    (i.whatsapp ? '<span>WhatsApp +' + esc(i.whatsapp) + '</span>' : '') + '</div>' +
+    '<div class="row small"><span>Precios en pesos chilenos, IVA incluido.</span>' + (state.canEdit ? '<button class="linkbtn" data-admin>Administrar carta</button>' : '') + '</div></footer>';
+  $("#menu").innerHTML = h;
+  renderCartBar();
+  spy();
+}
+function setOpen(id, open, scroll){
+  state.open[id] = open;
+  var sec = document.getElementById("c-" + id); if (!sec) return;
+  sec.classList.toggle("open", open);
+  var b = sec.querySelector("[data-togcat]"); if (b) b.setAttribute("aria-expanded", open);
+  var body = sec.querySelector(".sec-body"); if (body) body.hidden = !open;
+  if (open && scroll) sec.scrollIntoView({behavior: "smooth", block: "start"});
+}
+function catOn(id){ for (var i = 0; i < DATA.cats.length; i++) if (DATA.cats[i].id === id) return DATA.cats[i].on; return false; }
+function norm(s){ return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); }
+
+function renderCartBar(){
+  var b = $("#cartbar"), n = cartCount();
+  if (state.mode !== "casa" || !n){ b.hidden = true; b.innerHTML = ""; return; }
+  b.hidden = false;
+  b.innerHTML = '<button data-cart><span class="cnt">' + n + '</span><span>Ver pedido</span><span>' + money(cartTotal()) + '</span></button>';
+}
+function renderAll(){ renderMain(); }
+
+var spyObs = null;
+function spy(){
+  if (spyObs) spyObs.disconnect();
+  if (!("IntersectionObserver" in window)) return;
+  spyObs = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var id = e.target.id.slice(2);
+      document.querySelectorAll("#cats a").forEach(function(a){ a.classList.toggle("on", a.dataset.cat === id); });
+      var on = $('#cats a[data-cat="' + id + '"]');
+      if (on){ var p = on.parentNode; p.scrollLeft = on.offsetLeft - p.clientWidth / 2 + on.clientWidth / 2; }
+    });
+  }, {rootMargin: "-30% 0px -65% 0px"});
+  document.querySelectorAll(".sec[id^='c-']").forEach(function(s){ spyObs.observe(s); });
+}
+
+/* ================= Hojas ================= */
+function openSheet(html, cls){
+  closeSheet();
+  var s = document.createElement("div");
+  s.className = "scrim"; s.id = "scrim";
+  s.innerHTML = '<div class="sheet ' + (cls || "") + '" role="dialog" aria-modal="true"><button class="iconbtn close" data-close aria-label="Cerrar">' + ICON.x + '</button>' + html + '</div>';
+  document.body.appendChild(s);
+  document.body.style.overflow = "hidden";
+  var f = s.querySelector("[data-close]"); if (f) f.focus();
+}
+function closeSheet(){ var s = $("#scrim"); if (s) s.remove(); document.body.style.overflow = ""; }
+
+function openDish(id){
+  var it = itemById(id); if (!it) return;
+  var im = imgsOf(it), qty = 1;
+  var ing = (it.ing || "").split(/,|\by\b/).map(function(x){ return x.trim().replace(/\.$/, ""); }).filter(Boolean);
+  var specs = (it.specs || "").split(";").map(function(x){ var p = x.split(":"); return p.length > 1 ? [p[0].trim(), p.slice(1).join(":").trim()] : null; }).filter(Boolean);
+  var cat = null; DATA.cats.forEach(function(c){ if (c.id === it.cat) cat = c; });
+  var html = (im.length ? '<img class="dish-ph" id="dishph" src="' + im[0] + '" alt="' + esc(it.name) + '">' +
+      (im.length > 1 ? '<div class="dish-gal" style="margin-top:8px">' + im.map(function(s, k){ return '<img src="' + s + '" data-ph="' + k + '" class="' + (k ? '' : 'on') + '" alt="Foto ' + (k + 1) + '">'; }).join("") + '</div>' : '') : '') +
+    '<div class="tejido sheet-band" aria-hidden="true"></div>' +
+    '<div class="pad dish">' +
+    '<p class="kicker">' + esc(cat ? cat.name : "") + (it.sub ? ' · ' + esc(it.sub) : '') + '</p>' +
+    '<h2>' + esc(it.name) + '</h2>' +
+    '<div class="rowflex"><span class="price" style="font-size:1.3rem">' + money(it.price) + '</span>' + (it.fav ? '<span class="badge" style="margin:0">Recomendado de la casa</span>' : '') + '</div>' +
+    (it.quote ? '<blockquote class="frase"><span class="sol" aria-hidden="true">' + SUN + '</span><span>' + esc(it.quote) + '</span></blockquote>' : '') +
+    (it.desc ? '<p class="desc">' + esc(it.desc) + '</p>' : '') +
+    (ing.length ? '<div class="blk"><p class="label">Ingredientes</p><ul class="ing">' + ing.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join("") + '</ul></div>' : '') +
+    (specs.length ? '<div class="blk"><p class="label">Ficha del plato</p><dl class="ficha">' + specs.map(function(p){ return '<div><dt>' + esc(p[0]) + '</dt><dd>' + esc(p[1]) + '</dd></div>'; }).join("") + '</dl></div>' : '') +
+    (it.pair ? '<p class="pair"><span aria-hidden="true">' + ICON.glass + '</span><span><b>Marida con:</b> ' + esc(it.pair) + '</span></p>' : '') +
+    (state.mode === "casa" ?
+      '<div class="rowflex order"><div class="qty"><button data-q="-1" aria-label="Menos">−</button><span id="dq">1</span><button data-q="1" aria-label="Más">+</button></div>' +
+      '<button class="btn grow" id="dadd">Agregar · <span id="dtot">' + money(it.price) + '</span></button></div>'
+      : '<p class="small waiter">Para pedir este plato, avísale a tu garzón.</p>') +
+    '</div>';
+  openSheet(html);
+  var sc = $("#scrim");
+  sc.addEventListener("click", function(e){
+    var t = e.target.closest("[data-q],[data-ph],#dadd"); if (!t) return;
+    if (t.dataset.ph != null){ $("#dishph").src = im[+t.dataset.ph]; sc.querySelectorAll("[data-ph]").forEach(function(x){ x.classList.toggle("on", x === t); }); return; }
+    if (t.id === "dadd"){ state.cart[id] = (state.cart[id] || 0) + qty; saveCart(); closeSheet(); renderMain(); toast(qty + " × " + it.name + " agregado"); return; }
+    qty = Math.max(1, Math.min(50, qty + (+t.dataset.q))); $("#dq").textContent = qty; $("#dtot").textContent = money(it.price * qty);
+  });
+}
+
+function openCart(){
+  var ids = Object.keys(state.cart).filter(function(k){ return itemById(k); });
+  if (!ids.length){ closeSheet(); renderMain(); return; }
+  var i = DATA.info;
+  var f = store.get("ip-form") || {};
+  var html = '<div class="grab"></div><div class="pad"><h2>Tu pedido</h2><div>' +
+    ids.map(function(k){ var it = itemById(k); return '<div class="cart-line"><div><div class="nm">' + esc(it.name) + '</div><div class="small">' + money(it.price) + ' c/u</div></div>' +
+      '<div class="qty"><button data-cq="-1" data-id="' + k + '" aria-label="Quitar uno">−</button><span>' + state.cart[k] + '</span><button data-cq="1" data-id="' + k + '" aria-label="Agregar uno">+</button></div></div>'; }).join("") +
+    '</div><div class="total"><span>Total</span><span class="price">' + money(cartTotal()) + '</span></div>' +
+    '<div class="seg" role="tablist"><button class="' + (state.delivery === "retiro" ? "on" : "") + '" data-dl="retiro">Retiro en el local</button><button class="' + (state.delivery === "delivery" ? "on" : "") + '" data-dl="delivery">Delivery</button></div>' +
+    '<div class="field"><label for="f-name">Tu nombre</label><input id="f-name" autocomplete="name" value="' + esc(f.name || "") + '"></div>' +
+    (state.delivery === "delivery" ? '<div class="field"><label for="f-addr">Dirección de entrega</label><input id="f-addr" autocomplete="street-address" value="' + esc(f.addr || "") + '"></div>' : '') +
+    '<div class="field"><label for="f-note">Comentario (opcional)</label><textarea id="f-note" placeholder="Sin cebolla, término de la carne, hora de retiro…">' + esc(f.note || "") + '</textarea></div>' +
+    '<p class="small" style="margin:0">' + esc(i.payNote || "El pago es por transferencia: te enviamos los datos por WhatsApp al confirmar.") + (state.delivery === "delivery" ? ' ' + esc(i.deliveryNote || "El costo del delivery depende del sector y se confirma por WhatsApp.") : '') + '</p>' +
+    '<a class="btn wa" id="sendwa" target="_blank" rel="noopener" href="#">Enviar pedido por WhatsApp</a>' +
+    '<div class="copy small"><span>¿No se abre WhatsApp? Escríbenos al</span><code>+' + esc(i.whatsapp) + '</code><button class="linkbtn" data-copy>Copiar pedido</button></div>' +
+    '<button class="linkbtn" data-clear style="justify-self:start;color:var(--muted)">Vaciar pedido</button>' +
+    '</div>';
+  openSheet(html);
+  var sc = $("#scrim");
+  var upd = function(){ var o = {name: val("f-name"), addr: val("f-addr") || f.addr || "", note: val("f-note")}; store.set("ip-form", o); $("#sendwa").href = "https://wa.me/" + i.whatsapp + "?text=" + encodeURIComponent(orderText(o)); };
+  upd();
+  sc.addEventListener("input", upd);
+  sc.addEventListener("click", function(e){
+    var t = e.target.closest("[data-cq],[data-dl],[data-copy],[data-clear],#sendwa"); if (!t) return;
+    if (t.dataset.cq){ var k = t.dataset.id; state.cart[k] = (state.cart[k] || 0) + (+t.dataset.cq); saveCart(); renderMain(); openCart(); return; }
+    if (t.dataset.dl){ upd(); state.delivery = t.dataset.dl; openCart(); return; }
+    if (t.hasAttribute("data-clear")){ state.cart = {}; saveCart(); closeSheet(); renderMain(); toast("Pedido vaciado"); return; }
+    if (t.hasAttribute("data-copy")){ var txt = orderText({name: val("f-name"), addr: val("f-addr"), note: val("f-note")}); copyText(txt); return; }
+    if (t.id === "sendwa"){ if (!val("f-name")){ e.preventDefault(); $("#f-name").focus(); toast("Escribe tu nombre para el pedido"); return; }
+      if (state.delivery === "delivery" && !val("f-addr")){ e.preventDefault(); $("#f-addr").focus(); toast("Falta la dirección de entrega"); return; } }
+  });
+}
+function val(id){ var e = document.getElementById(id); return e ? e.value.trim() : ""; }
+function orderText(o){
+  var lines = ["Hola " + DATA.info.name + ", quiero hacer este pedido:", ""];
+  Object.keys(state.cart).forEach(function(k){ var it = itemById(k); if (it) lines.push(state.cart[k] + " × " + it.name + " — " + money(it.price * state.cart[k])); });
+  lines.push("", "Total: " + money(cartTotal()), "");
+  lines.push("Nombre: " + (o.name || ""));
+  lines.push("Entrega: " + (state.delivery === "delivery" ? "Delivery" : "Retiro en el local"));
+  if (state.delivery === "delivery") lines.push("Dirección: " + (o.addr || ""));
+  if (o.note) lines.push("Comentario: " + o.note);
+  lines.push("Pago: transferencia");
+  return lines.join("\n");
+}
+function copyText(t){
+  try { navigator.clipboard.writeText(t).then(function(){ toast("Pedido copiado"); }, function(){ toast("No se pudo copiar"); }); }
+  catch(e){ toast("No se pudo copiar"); }
+}
+var tT = null;
+function toast(m){
+  var t = $("#toast"); t.textContent = m; t.hidden = false;
+  clearTimeout(tT); tT = setTimeout(function(){ t.hidden = true; }, 2400);
+}
+
+/* ================= Eventos de la carta ================= */
+document.addEventListener("click", function(e){
+  var t;
+  if ((t = e.target.closest("[data-mode]"))) return setMode(t.dataset.mode);
+  if (e.target.closest("[data-switch]")){ state.mode = null; store.set("ip-mode", null); renderWelcome(); slides(); return; }
+  if (e.target.closest("[data-admin]")) return openAdmin();
+  if ((t = e.target.closest("[data-add]"))){ e.stopPropagation(); var id = t.dataset.add; state.cart[id] = (state.cart[id] || 0) + 1; saveCart(); renderMain(); var it = itemById(id); toast("Agregado: " + it.name); return; }
+  if (e.target.closest("[data-cart]") || e.target.closest("#cartbtn")) return openCart();
+  if ((t = e.target.closest("[data-togcat]"))){ var cid = t.dataset.togcat; setOpen(cid, !state.open[cid], !state.open[cid]); return; }
+  if ((t = e.target.closest("#cats a[data-cat]"))){ e.preventDefault(); if (state.q){ state.q = ""; $("#q").value = ""; renderMain(); } setOpen(t.dataset.cat, true, true); return; }
+  if ((t = e.target.closest("[data-open]"))) return openDish(t.dataset.open);
+  if (e.target.closest("[data-close]") || e.target.id === "scrim") return closeSheet();
+});
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape") closeSheet();
+  if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches(".item[data-open]")){ e.preventDefault(); openDish(e.target.dataset.open); }
+});
+$("#q").addEventListener("input", function(e){ state.q = e.target.value; renderMain(); });
+
+/* ================= Panel de administración ================= */
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+function openAdmin(){
+  if (!state.canEdit) return;
+  var draft = null;
+  try { var d = JSON.parse(sessionStorage.getItem("ip-draft") || "null"); if (d && d.base === DATA.v) draft = d.data; } catch(e){}
+  state.admin = {data: draft || clone(DATA), dirty: !!draft, tab: "platos", q: "", cat: "", edit: null, del: null, err: ""};
+  closeSheet(); renderAdmin();
+  document.body.style.overflow = "hidden";
+}
+function closeAdmin(){
+  var A = state.admin; if (!A) return;
+  if (A.dirty && !A.confirmClose){ A.confirmClose = true; renderAdmin(); return; }
+  state.admin = null; $("#admin").hidden = true; $("#admin").innerHTML = ""; document.body.style.overflow = "";
+  try { sessionStorage.removeItem("ip-draft"); } catch(e){}
+}
+function touch(){
+  var A = state.admin; A.dirty = true; A.confirmClose = false;
+  try { sessionStorage.setItem("ip-draft", JSON.stringify({base: DATA.v, data: A.data})); } catch(e){}
+}
+function catName(D, id){ for (var i = 0; i < D.cats.length; i++) if (D.cats[i].id === id) return D.cats[i].name; return id; }
+
+function renderAdmin(){
+  var A = state.admin, D = A.data, el = $("#admin");
+  el.hidden = false;
+  var h = '<header><div class="wrap"><h1>Administrar carta</h1>' +
+    '<div class="tabs">' + [["platos","Platos"],["cats","Categorías"],["local","Datos del local"]].map(function(t){ return '<button data-tab="' + t[0] + '" class="' + (A.tab === t[0] ? 'on' : '') + '">' + t[1] + '</button>'; }).join("") + '</div>' +
+    '<span class="grow"></span><button class="iconbtn" data-aclose aria-label="Cerrar panel">' + ICON.x + '</button></div></header><div class="wrap" style="padding-block:6px 24px">';
+  if (A.err) h += '<div class="msg err" style="margin-top:12px">' + esc(A.err) + '</div>';
+  if (A.confirmClose) h += '<div class="msg" style="margin-top:12px">Tienes cambios sin publicar. <button class="linkbtn" data-discard>Salir y descartarlos</button> · <button class="linkbtn" data-stay>Seguir editando</button></div>';
+
+  if (A.edit) h += editForm(A, D);
+  else if (A.tab === "platos"){
+    var list = D.items.filter(function(it){ return (!A.cat || it.cat === A.cat) && (!A.q || norm(it.name).indexOf(norm(A.q)) > -1); });
+    h += '<div class="filters"><input id="aq" placeholder="Buscar plato…" value="' + esc(A.q) + '">' +
+      '<select id="acat" aria-label="Categoría"><option value="">Todas las categorías</option>' + D.cats.map(function(c){ return '<option value="' + c.id + '"' + (A.cat === c.id ? ' selected' : '') + '>' + esc(c.name) + '</option>'; }).join("") + '</select>' +
+      '<button class="btn" data-new>+ Nuevo plato</button></div>' +
+      '<p class="small" style="margin:10px 0 0">' + list.length + ' platos · el interruptor verde lo muestra en la carta, gris lo oculta.</p><div class="alist">';
+    h += list.map(function(it){
+      var im = imgsOf(it);
+      return '<div class="arow' + (it.on ? '' : ' off') + '">' + (im.length ? '<img src="' + im[0] + '" alt="">' : '<span class="noimg">sin foto</span>') +
+        '<div class="tx"><b>' + esc(it.name) + (it.fav ? ' ★' : '') + '</b><span>' + esc(catName(D, it.cat)) + (it.sub ? ' · ' + esc(it.sub) : '') + ' · <span class="price">' + money(it.price) + '</span></span></div>' +
+        '<div class="acts">' + (A.del === it.id ?
+          '<span class="confirm">¿Eliminar? <button data-delyes="' + it.id + '">Sí</button><button class="no" data-delno>No</button></span>' :
+          '<button class="sw' + (it.on ? ' on' : '') + '" data-tog="' + it.id + '" aria-label="' + (it.on ? 'Ocultar' : 'Mostrar') + ' ' + esc(it.name) + '"></button>' +
+          '<button class="mini" data-edit="' + it.id + '" aria-label="Editar">' + ICON.edit + '</button>' +
+          '<button class="mini del" data-del="' + it.id + '" aria-label="Eliminar">' + ICON.trash + '</button>') +
+        '</div></div>';
+    }).join("") + '</div>';
+  } else if (A.tab === "cats"){
+    h += '<p class="small" style="margin:14px 0 0">Cambia el nombre, la frase, el orden o si la categoría se muestra.</p><div class="alist">' + D.cats.map(function(c, k){
+      var n = D.items.filter(function(it){ return it.cat === c.id; }).length;
+      return '<div class="arow' + (c.on ? '' : ' off') + '" style="grid-template-columns:1fr auto"><div class="grid2"><div class="field"><label for="cn-' + c.id + '">Nombre (' + n + ' platos)</label><input id="cn-' + c.id + '" data-cname="' + c.id + '" value="' + esc(c.name) + '"></div>' +
+        '<div class="field"><label for="ct-' + c.id + '">Frase</label><input id="ct-' + c.id + '" data-ctag="' + c.id + '" value="' + esc(c.tag || "") + '"></div></div>' +
+        '<div class="acts"><label class="upl" style="width:64px;height:48px;font-size:.68rem' + (c.img ? ';background:center/cover url(' + c.img + ');color:#fff' : '') + '">' + (c.img ? 'Cambiar' : '+ Foto') + '<input type="file" accept="image/*" class="sr" data-cimg="' + c.id + '"></label><button class="sw' + (c.on ? ' on' : '') + '" data-ctog="' + c.id + '" aria-label="Mostrar u ocultar"></button><button class="mini" data-cup="' + k + '" aria-label="Subir">' + ICON.up + '</button><button class="mini" data-cdown="' + k + '" aria-label="Bajar">' + ICON.down + '</button></div></div>';
+    }).join("") + '</div>' +
+    '<div class="rowflex" style="margin-top:14px"><div class="field grow"><label for="newcat">Nueva categoría</label><input id="newcat" placeholder="Ej: Promociones"></div><button class="btn ghost" data-addcat style="align-self:end">Agregar</button></div>';
+  } else {
+    var I = D.info;
+    h += '<div class="grid2" style="margin-top:14px">' +
+      fld("i-name","name","Nombre del local",I.name) + fld("i-tag","tagline","Frase bajo el nombre",I.tagline) +
+      fld("i-wa","whatsapp","WhatsApp para pedidos (con 56, sin +)",I.whatsapp) + fld("i-addr","address","Dirección",I.address) +
+      fld("i-hours","hours","Horario resumido (texto)",I.hours) + fld("i-city","city","Ciudad",I.city || "Iquique") +
+      fld("i-maps","maps","Enlace de Google Maps",I.maps) + fld("i-ig","instagram","Instagram (usuario, sin @)",I.instagram) + fld("i-tt","tiktok","TikTok (usuario, sin @)",I.tiktok) +
+      '</div><div class="grid2" style="margin-top:12px">' +
+      area("i-pay","payNote","Texto sobre el pago",I.payNote || "El pago es por transferencia: te enviamos los datos por WhatsApp al confirmar.") +
+      area("i-dl","deliveryNote","Texto sobre el delivery",I.deliveryNote || "El costo del delivery depende del sector y se confirma por WhatsApp.") +
+      '</div><p class="label" style="margin-top:18px">Horario por día (deja vacío si ese día está cerrado)</p><div class="hedit">' +
+      [1,2,3,4,5,6,0].map(function(d){ var x = (I.week || [])[d] || {}; return '<div class="hrow"><span>' + DAYS[d] + '</span><input type="time" aria-label="Abre ' + DAYS[d] + '" data-hday="' + d + '" data-hk="open" value="' + esc(x.open || "") + '"><span>a</span><input type="time" aria-label="Cierra ' + DAYS[d] + '" data-hday="' + d + '" data-hk="close" value="' + esc(x.close || "") + '"></div>'; }).join("") +
+      '</div><p class="label" style="margin-top:18px">Foto de portada</p><div class="imgedit"><figure><img src="' + I.hero + '" alt="Portada"></figure><label class="upl">Cambiar<input type="file" accept="image/*" class="sr" data-hero></label></div>';
+  }
+  h += '</div><div class="pubbar"><div class="wrap"><span class="dirty">' + (A.dirty ? 'Cambios sin publicar' : 'Todo publicado') + '</span><span class="grow"></span>' +
+    (A.dirty ? '<button class="btn ghost" data-reset>Descartar</button>' : '') +
+    '<button class="btn" data-publish' + (A.dirty && !A.busy ? '' : ' disabled') + '>' + (A.busy ? 'Publicando…' : 'Publicar cambios') + '</button></div></div>';
+  var sy = el.scrollTop;
+  el.innerHTML = h; el.scrollTop = sy;
+}
+function fld(id, key, label, v){ return '<div class="field"><label for="' + id + '">' + label + '</label><input id="' + id + '" data-info="' + key + '" value="' + esc(v || "") + '"></div>'; }
+function area(id, key, label, v){ return '<div class="field"><label for="' + id + '">' + label + '</label><textarea id="' + id + '" data-info="' + key + '">' + esc(v || "") + '</textarea></div>'; }
+
+function editForm(A, D){
+  var it = A.edit, im = imgsOf(it);
+  return '<div style="margin-top:14px;display:grid;gap:12px"><div class="rowflex"><button class="linkbtn" data-back>‹ Volver a la lista</button></div>' +
+    '<h2 class="serif" style="margin:0;font-size:1.5rem">' + (it._new ? 'Nuevo plato' : esc(it.name || 'Editar plato')) + '</h2>' +
+    '<div class="grid2">' +
+      '<div class="field"><label for="e-name">Nombre</label><input id="e-name" data-e="name" value="' + esc(it.name) + '"></div>' +
+      '<div class="field"><label for="e-price">Precio (solo números)</label><input id="e-price" data-e="price" inputmode="numeric" value="' + esc(it.price) + '"></div>' +
+      '<div class="field"><label for="e-cat">Categoría</label><select id="e-cat" data-e="cat">' + D.cats.map(function(c){ return '<option value="' + c.id + '"' + (it.cat === c.id ? ' selected' : '') + '>' + esc(c.name) + '</option>'; }).join("") + '</select></div>' +
+      '<div class="field"><label for="e-sub">Subgrupo (opcional)</label><input id="e-sub" data-e="sub" list="subs" value="' + esc(it.sub || "") + '"><datalist id="subs">' + uniq(D.items.filter(function(x){ return x.cat === it.cat && x.sub; }).map(function(x){ return x.sub; })).map(function(s){ return '<option value="' + esc(s) + '">'; }).join("") + '</datalist></div>' +
+    '</div>' +
+    '<div class="field"><label for="e-desc">Descripción corta</label><textarea id="e-desc" data-e="desc">' + esc(it.desc || "") + '</textarea></div>' +
+    '<div class="field"><label for="e-ing">Ingredientes (separados por coma)</label><textarea id="e-ing" data-e="ing" placeholder="Pescado, limón, cebolla morada…">' + esc(it.ing || "") + '</textarea></div>' +
+    '<div class="field"><label for="e-quote">Frase destacada</label><input id="e-quote" data-e="quote" value="' + esc(it.quote || "") + '"></div>' +
+    '<div class="field"><label for="e-specs">Ficha del plato (formato: Porción: 1 persona; Picor: suave)</label><input id="e-specs" data-e="specs" value="' + esc(it.specs || "") + '"></div>' +
+    '<div class="field"><label for="e-pair">Marida con</label><input id="e-pair" data-e="pair" value="' + esc(it.pair || "") + '"></div>' +
+    '<div class="rowflex"><button class="sw' + (it.fav ? ' on' : '') + '" data-efav aria-label="Recomendado"></button><span>Recomendado de la casa</span><span style="width:18px"></span><button class="sw' + (it.on ? ' on' : '') + '" data-eon aria-label="Visible"></button><span>Visible en la carta</span></div>' +
+    '<p class="label">Fotos del plato (la primera es la principal)</p><div class="imgedit">' +
+      im.map(function(s, k){ return '<figure><img src="' + s + '" alt="Foto ' + (k + 1) + '"><button data-rmimg="' + k + '" aria-label="Quitar foto">✕</button></figure>'; }).join("") +
+      '<label class="upl">+ Agregar foto<input type="file" accept="image/*" multiple class="sr" data-imgs></label></div>' +
+    '<div class="rowflex" style="margin-top:6px"><button class="btn" data-esave>Guardar plato</button><button class="btn ghost" data-back>Cancelar</button></div>' +
+    '<p class="small" style="margin:0">Guardar deja el plato listo en el panel. Para que lo vean los clientes, presiona «Publicar cambios».</p></div>';
+}
+function uniq(a){ return a.filter(function(x, i){ return a.indexOf(x) === i; }); }
+
+function resizeImg(file, max, q){
+  return new Promise(function(res, rej){
+    var r = new FileReader();
+    r.onerror = rej;
+    r.onload = function(){
+      var img = new Image();
+      img.onerror = rej;
+      img.onload = function(){
+        var s = Math.min(1, max / Math.max(img.width, img.height));
+        var c = document.createElement("canvas"); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        res(c.toDataURL("image/jpeg", q));
+      };
+      img.src = r.result;
+    };
+    r.readAsDataURL(file);
+  });
+}
+
+function adminEvents(){
+  var el = $("#admin");
+  el.addEventListener("input", function(e){
+    var A = state.admin, D = A.data, t = e.target;
+    if (t.id === "aq"){ A.q = t.value; var p = t.selectionStart; renderAdmin(); var n = $("#aq"); n.focus(); n.setSelectionRange(p, p); return; }
+    if (t.dataset.e){ var k = t.dataset.e; A.edit[k] = k === "price" ? (parseInt(String(t.value).replace(/\D/g, ""), 10) || 0) : t.value; return; }
+    if (t.dataset.info){ D.info[t.dataset.info] = t.value; touch(); setDirtyLabel(); return; }
+    if (t.dataset.hday){ if (!D.info.week || D.info.week.length !== 7) D.info.week = [{},{},{},{},{},{},{}]; var hd = D.info.week[+t.dataset.hday]; hd[t.dataset.hk] = t.value; if (!hd.open || !hd.close){ if (!t.value){ hd.open = ""; hd.close = ""; } } touch(); setDirtyLabel(); return; }
+    if (t.dataset.cname){ findCat(D, t.dataset.cname).name = t.value; touch(); setDirtyLabel(); return; }
+    if (t.dataset.ctag){ findCat(D, t.dataset.ctag).tag = t.value; touch(); setDirtyLabel(); return; }
+  });
+  el.addEventListener("change", function(e){
+    var A = state.admin, D = A.data, t = e.target;
+    if (t.id === "acat"){ A.cat = t.value; renderAdmin(); return; }
+    if (t.id === "e-cat"){ A.edit.cat = t.value; return; }
+    if (t.hasAttribute("data-imgs") && t.files.length){
+      var fs = Array.prototype.slice.call(t.files, 0, 6);
+      Promise.all(fs.map(function(f){ return resizeImg(f, 900, .74); })).then(function(urls){
+        A.edit.imgs = imgsOf(A.edit).concat(urls); A.edit.img = ""; renderAdmin();
+      }, function(){ A.err = "No se pudo leer la foto. Prueba con otra imagen (JPG o PNG)."; renderAdmin(); });
+      return;
+    }
+    if (t.dataset.cimg && t.files.length){
+      var cid = t.dataset.cimg;
+      resizeImg(t.files[0], 760, .62).then(function(u){ findCat(D, cid).img = u; touch(); renderAdmin(); });
+      return;
+    }
+    if (t.hasAttribute("data-hero") && t.files.length){
+      resizeImg(t.files[0], 1400, .74).then(function(u){ D.info.hero = u; touch(); renderAdmin(); });
+    }
+  });
+  el.addEventListener("click", function(e){
+    var A = state.admin; if (!A) return;
+    var D = A.data, t = e.target.closest("button"); if (!t) return;
+    var ds = t.dataset;
+    if (t.hasAttribute("data-aclose")) return closeAdmin();
+    if (t.hasAttribute("data-discard")){ A.dirty = false; return closeAdmin(); }
+    if (t.hasAttribute("data-stay")){ A.confirmClose = false; return renderAdmin(); }
+    if (ds.tab){ A.tab = ds.tab; A.edit = null; return renderAdmin(); }
+    if (ds.tog){ var it = findItem(D, ds.tog); it.on = !it.on; touch(); return renderAdmin(); }
+    if (ds.del){ A.del = ds.del; return renderAdmin(); }
+    if (t.hasAttribute("data-delno")){ A.del = null; return renderAdmin(); }
+    if (ds.delyes){ D.items = D.items.filter(function(x){ return x.id !== ds.delyes; }); A.del = null; touch(); toast("Plato eliminado (publica para aplicarlo)"); return renderAdmin(); }
+    if (ds.edit){ A.edit = clone(findItem(D, ds.edit)); return renderAdmin(); }
+    if (t.hasAttribute("data-new")){ A.edit = {id: "n" + Date.now().toString(36), cat: A.cat || D.cats[0].id, sub: "", name: "", desc: "", price: 0, on: true, fav: false, ing: "", quote: "", img: "", imgs: [], _new: true}; return renderAdmin(); }
+    if (t.hasAttribute("data-back")){ A.edit = null; return renderAdmin(); }
+    if (t.hasAttribute("data-efav")){ A.edit.fav = !A.edit.fav; return renderAdmin(); }
+    if (t.hasAttribute("data-eon")){ A.edit.on = !A.edit.on; return renderAdmin(); }
+    if (ds.rmimg){ var ims = imgsOf(A.edit).slice(); ims.splice(+ds.rmimg, 1); A.edit.imgs = ims; A.edit.img = ""; return renderAdmin(); }
+    if (t.hasAttribute("data-esave")){
+      var x = A.edit;
+      if (!x.name.trim()){ A.err = "El plato necesita un nombre."; return renderAdmin(); }
+      if (!x.price){ A.err = "Escribe el precio en números, por ejemplo 12990."; return renderAdmin(); }
+      A.err = ""; var isNew = x._new; delete x._new; x.name = x.name.trim();
+      if (isNew) D.items.push(x); else D.items = D.items.map(function(o){ return o.id === x.id ? x : o; });
+      A.edit = null; A.cat = x.cat; touch(); toast(isNew ? "Plato agregado" : "Plato guardado"); return renderAdmin();
+    }
+    if (ds.ctog){ var c = findCat(D, ds.ctog); c.on = !c.on; touch(); return renderAdmin(); }
+    if (ds.cup || ds.cdown){ var k = +(ds.cup || ds.cdown), j = ds.cup ? k - 1 : k + 1; if (j < 0 || j >= D.cats.length) return; var tmp = D.cats[k]; D.cats[k] = D.cats[j]; D.cats[j] = tmp; touch(); return renderAdmin(); }
+    if (t.hasAttribute("data-addcat")){ var nm = val("newcat"); if (!nm) return; D.cats.push({id: "c" + Date.now().toString(36), name: nm, tag: "", on: true}); touch(); return renderAdmin(); }
+    if (t.hasAttribute("data-reset")){ A.data = clone(DATA); A.dirty = false; A.edit = null; try { sessionStorage.removeItem("ip-draft"); } catch(err){} return renderAdmin(); }
+    if (t.hasAttribute("data-publish")) return publish();
+  });
+}
+function setDirtyLabel(){ var d = $("#admin .dirty"); if (d) d.textContent = "Cambios sin publicar"; var p = $("#admin [data-publish]"); if (p) p.disabled = false; }
+function findItem(D, id){ for (var i = 0; i < D.items.length; i++) if (D.items[i].id === id) return D.items[i]; }
+function findCat(D, id){ for (var i = 0; i < D.cats.length; i++) if (D.cats[i].id === id) return D.cats[i]; }
+
+function buildDoc(data){
+  var json = JSON.stringify(data).replace(/</g, "\\u003c");
+  return SKEL_OPEN +
+    "<title>Carta " + esc(data.info.name || "Inti Phajsi") + "</title>" + FONT_LINK +
+    '<style id="css">' + document.getElementById("css").textContent + "</style>" +
+    '<script type="application/json" id="menu-data">' + json + "</scr" + "ipt>" +
+    SHELL +
+    '<script id="app">' + document.getElementById("app").textContent + "</scr" + "ipt>" +
+    SKEL_CLOSE;
+}
+function publish(){
+  var A = state.admin; if (!A || A.busy) return;
+  if (!state.artifact){ A.err = "Desde aquí no se puede publicar. Abre la carta en claude.ai con tu cuenta para guardar cambios."; return renderAdmin(); }
+  var next = clone(A.data); next.v = (DATA.v || 1) + 1;
+  var html = buildDoc(next);
+  if (html.length > 15.5e6){ A.err = "La carta quedó demasiado pesada por las fotos. Quita algunas fotos e intenta de nuevo."; return renderAdmin(); }
+  A.busy = true; A.err = ""; renderAdmin();
+  try { sessionStorage.setItem("ip-draft", JSON.stringify({base: DATA.v, data: A.data})); sessionStorage.setItem("ip-reopen", "1"); } catch(e){}
+  state.artifact.publish(html).then(function(){
+    try { sessionStorage.removeItem("ip-draft"); } catch(e){}
+    A.busy = false; A.dirty = false; toast("Publicado. La carta se está actualizando…");
+  }, function(err){
+    A.busy = false;
+    var c = err && err.code;
+    try { sessionStorage.removeItem("ip-reopen"); } catch(e){}
+    A.err = c === "conflict" ? "Alguien publicó otra versión mientras editabas. La página se recargará con esa versión; tus cambios quedan guardados en este navegador para volver a publicarlos." :
+      (c === "not_writer" || c === "not_granted") ? "Tu cuenta no tiene permiso para publicar esta carta." :
+      c === "too_large" ? "La carta quedó demasiado pesada. Quita algunas fotos e intenta de nuevo." :
+      c === "rate_limited" ? "Se publicó hace muy poco. Espera un minuto e intenta de nuevo." :
+      c === "capability_disabled" ? "Publicar no está disponible desde este enlace. Abre la carta en claude.ai con tu cuenta." :
+      "No se pudo publicar (" + (c || "error") + "). Intenta de nuevo en un momento.";
+    renderAdmin();
+  });
+}
+
+/* ================= Inicio ================= */
+renderWelcome(); slides();
+renderMain();
+adminEvents();
+if (window.claude && window.claude.use){
+  window.claude.use("user").then(function(u){
+    if (!u) return null;
+    return u.canEdit().then(function(ok){
+      state.canEdit = !!ok;
+      if (ok){
+        renderMain();
+        var re = false; try { re = sessionStorage.getItem("ip-reopen") === "1"; sessionStorage.removeItem("ip-reopen"); } catch(e){}
+        if (re || location.hash === "#admin") openAdmin();
+      }
+      return ok;
+    });
+  }).catch(function(){});
+  window.claude.use("artifact").then(function(a){ state.artifact = a; }).catch(function(){});
+}
+})();
+</script>
+</body></html>
